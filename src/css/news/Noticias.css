@@ -1,0 +1,158 @@
+#tabla-container {  
+  max-height: calc(90vh); /* Aumenta la altura máxima del contenedor de la tabla */
+  margin-top: 85px;
+  overflow-y: auto;
+  padding-top: 50px; /* Ajusta este valor según el tamaño del encabezado */
+}
+
+table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+table thead th {
+  position: sticky; /* Encabezado fijo */
+  font-weight: bold;
+  background-color: #81b79e;
+  font-size: 18px; /* Ajusta el tamaño de la fuente en las celdas de encabezado */
+  text-align: left;
+  z-index: 1;
+}
+
+table tbody {
+  margin: 50px;
+  overflow-y: auto; /* Añadir scroll vertical al cuerpo de la tabla */
+  max-width: 100%;
+  table-layout: fixed;
+  z-index: 0;
+}
+
+
+table tbody tr td {
+  font-size: 18px; /* Ajusta el tamaño de la fuente en el cuerpo de la tabla */
+  background-color: transparent !important; /* Fondo transparente con opacidad 0.7 */   
+}
+
+table tbody tr td img {
+  max-width: 100%; /* Ajusta el tamaño máximo de las imágenes dentro de las celdas */
+}
+
+.selected {
+  font-weight: bold; /* Negrita para el texto cuando la fila está seleccionada */
+}
+
+.app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  margin-top: 56px; /* Altura de la barra de navegación */
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar .ml-auto {
+  margin-left: auto !important;
+}
+
+.acontainer {
+  color: #04703F;
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 20px; /* Sube el contenedor */
+  position: absolute; /* Posición absoluta para que ocupe todo el ancho */
+  top: 56px; /* Altura de la barra de navegación */
+  left: 0;
+}
+
+.custom-border {
+  border-color: #04703F !important;
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+  background-color: #04703F;
+  color: white; /* Cambia el fondo al pasar el ratón */
+}
+
+.border-bottom-only {
+  border: none;
+  border-bottom: 4px solid #04703F;
+  color: #04703F;
+  background-color: transparent;
+  outline: none;
+}
+
+.no-rounded {
+  border-radius: 0;
+}
+
+.form-group input{
+  padding-left: 2%;
+  width: 100%;
+}
+
+.form-group select {
+  padding-left: 2%;
+  width: 100%;
+}
+
+#form-container-input {
+  height: 75%;
+  overflow-y: auto;
+}
+
+#form-container-input input::placeholder {
+  color: #04703F; /* Color del placeholder */
+}
+
+#form-container {
+  height: calc(100vh - 250px);
+}
+
+#form-container-button button{
+  border-width: 14px;
+  margin-top: 30px;
+  border: 4px solid #04703F;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+  font-size: 16px;
+  text-decoration: none; /* Elimina el subrayado */
+  color: #04703F;
+}
+
+#form-container-button button:hover {
+  background-color: #04703F;
+  color: white;
+}
+
+.boton{
+  border-width: 14px;
+  margin-top: 10px;
+  border: 4px solid #04703F;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  display: block;
+  margin: 10px auto;
+  font-size: 16px;
+  text-decoration: none; /* Elimina el subrayado */
+  color: #04703F;
+}
+
+.boton:hover {
+  background-color: #04703F;
+  border: 4px solid #04703F;
+  color: white;
+}
+
+h1 {
+  color: #04703F;
+}
