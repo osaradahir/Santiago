@@ -1,0 +1,173 @@
+#tabla-container {  
+    max-height: 60vh; /* Cambiado calc(60vh) a 60vh */
+    overflow-y: auto; /* Añade scroll vertical al contenedor si el contenido excede la altura máxima */
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-spacing: 0;
+}
+
+table thead th {
+    background-color: #81b79e !important;
+}
+
+table tbody tr td {
+    background-color: transparent !important;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    margin-top: 56px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+}
+
+.navbar .ml-auto {
+    margin-left: auto !important;
+}
+
+.acontainer {
+    background-color: transparent !important;
+    color: #04703F;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 20px;
+    position: relative; /* Cambiado a relative */
+}
+
+.custom-border {
+    border-color: #04703F !important;
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+    background-color: #04703F;
+    color: white;
+}
+
+/* EncuestaInsert.css */
+
+#preguntas-container {
+    width: 100%;
+}
+
+#preguntas-container.scrollable {
+    max-height: 800px; /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto; /* Permite el scroll vertical */
+}
+
+.pregunta {
+    width: 100%;
+    margin-bottom: 10px; /* Espacio entre preguntas */
+}
+
+.ml-2 {
+    margin-left: 0.5rem;
+}
+
+.border-bottom-only {
+    border: none;
+    border-bottom: 4px solid #04703F;
+    color: #04703F;
+    background-color: transparent;
+    outline: none;
+}
+
+.no-rounded {
+    border-radius: 0;
+}
+
+.form-group input,
+.form-group select {
+    padding-left: 2%;
+    width: 100%;
+}
+
+#form-container-input input::placeholder {
+    color: #04703F; /* Color del placeholder */
+}
+
+#form-container-button button {
+    border-width: 14px;
+    margin-top: 10px;
+    border: 4px solid #04703F;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+    font-size: 16px;
+    text-decoration: none; /* Elimina el subrayado */
+    color: #04703F;
+}
+
+#form-container-button button:hover {
+    background-color: #04703F;
+    color: white;
+}
+
+.boton {
+    border-width: 14px;
+    margin-top: 8px;
+    border: 4px solid #04703F;
+    border-radius: 20px;
+    padding: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+    font-size: 16px;
+    text-decoration: none; /* Elimina el subrayado */
+    color: #04703F;
+}
+
+.boton:hover {
+    background-color: #04703F;
+    border: 4px solid #04703F;
+    color: white;
+}
+
+.boton_01 {
+    border-width: 14px;
+    margin-top: 24px;
+    border: 4px solid #04703F;
+    border-radius: 20px;
+    padding: 3px 7px; /* Reducir el padding */
+    cursor: pointer;
+    display: block;
+    margin: 8px auto;
+    font-size: 10px; /* Reducir el tamaño del texto */
+    text-decoration: none;
+    color: #04703F;
+}
+
+.boton_01:hover {
+    background-color: #04703F;
+    border: 4px solid #04703F;
+    color: white;
+}
+
+
+h1 {
+    color: #04703F;
+    margin-top: 50px; /* Añadir margen superior al título */
+}
+
+#form-container-input {
+    margin-top: 20px; /* Añadir margen superior al contenedor del formulario */
+}
+
+
+#preguntas-container.scrollable {
+    max-height: 300px; /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto; /* Permite el scroll vertical */
+}

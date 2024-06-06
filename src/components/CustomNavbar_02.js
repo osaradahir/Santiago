@@ -4,7 +4,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const CustomNavbar = () => {
-
+    // Función para manejar el clic en "Salir"
     const handleLogout = () => {
         localStorage.removeItem('token'); // Borra el token del almacenamiento local
         window.location.href = '/'; // Redirige al usuario a la página de inicio de sesión
@@ -13,10 +13,10 @@ const CustomNavbar = () => {
     return (
         <Navbar expand="lg" fixed="top">
             <Nav className="mr-auto" style={{ marginLeft: '20px'}}>
-                <Nav.Link as={Link} to="/pagina/logo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Logo</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/carrusel" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Carrucel</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/colores" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Colores</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/mapa" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Mapa</Nav.Link>
+                <Nav.Link as={Link} to="/transparencia/articulo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Articulo</Nav.Link>
+                <Nav.Link as={Link} to="/transparencia/fraccion" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Fraccion</Nav.Link>
+                <Nav.Link as={Link} to="/transparencia/archivo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Archivo</Nav.Link>
+
             </Nav>
             <Nav className="ml-auto" style={{ marginRight: '10px'}}>
                 <NavDropdown 
@@ -31,8 +31,7 @@ const CustomNavbar = () => {
                     className="custom-dropdown-menu"
                     style={{ marginRight: '30px' }}
                 >
-                    <NavDropdown.Item as={Link} to="/menu">Menu</NavDropdown.Item>
-                    <NavDropdown.Divider />
+                    {/* Usar la función handleLogout en el evento onClick */}
                     <NavDropdown.Item onClick={handleLogout}>Salir</NavDropdown.Item>
                 </NavDropdown>
             </Nav>

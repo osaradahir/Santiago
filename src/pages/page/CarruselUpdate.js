@@ -8,7 +8,6 @@ function CarruselUpdate() {
     const [fileName, setFileName] = useState("");
     const [url, setUrl] = useState("");
     const [estado, setEstado] = useState("1");
-    const [avisoData, setAvisoData] = useState({}); // Estado para almacenar los datos del aviso
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -21,7 +20,6 @@ function CarruselUpdate() {
                 .then(data => {
                     console.log('Datos del aviso:', data);
                     const avisoData = data[0]; // Tomamos el primer objeto de la lista
-                    setAvisoData(avisoData); // Guardamos los datos del aviso en el estado
                     setFileName(avisoData.imagen); // Establecemos el nombre del archivo en el estado
                     setUrl(avisoData.url); // Establecemos la URL en el estado
                     setEstado(avisoData.estado); // Establecemos el estado en el estado
@@ -62,7 +60,7 @@ function CarruselUpdate() {
         formData.append('estado', estado);
 
         try {
-            const response = await fetch(`http://localhost:8000/aviso/editar/${avisoID}`, { // Corregido el string template
+            const response = await fetch(`http://localhost:8000/aviso/editar/${avisoID}`, {
                 method: 'PUT',
                 body: formData
             });
@@ -79,6 +77,10 @@ function CarruselUpdate() {
             console.error('Error al subir el archivo:', error);
             alert('Error al subir el archivo.');
         }
+    };
+
+    const handleInvalidInput = () => {
+        alert('¡Recuerda cambiar la imagen!');
     };
 
     return (
@@ -104,6 +106,7 @@ function CarruselUpdate() {
                             className="fs-2 border-bottom-only no-rounded"
                             onChange={handleFileChange}
                             accept=".png, .jpg, .jpeg" 
+                            onInvalid={handleInvalidInput}  // Manejar el evento invalid directamente
                             required
                         />
                     </div>

@@ -148,7 +148,8 @@ function UserUpdate() {
                             required
                         >
                             <option value="1">Administrador</option>
-                            <option value="0">Funcionario</option>
+                            <option value="0">Director de Transparencia</option>
+                            <option value="2">Director de Area</option>
                         </select>
                     </div>
                 </div>

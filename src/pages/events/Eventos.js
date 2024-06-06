@@ -114,7 +114,7 @@ function Evento() {
                     </div>
                 </div>
             </div>
-            <div id="tabla-container" class="px-4 py-4">
+            <div id="tabla-container" className="px-4 py-4">
                 <table className="table table-hover" style={{ backgroundColor: "transparent", borderCollapse: "separate", borderSpacing: "0 8px" }}>
                     <thead>
                         <tr style={{ borderBottom: "2px solid #04703F" }}>

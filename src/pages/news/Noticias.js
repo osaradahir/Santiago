@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import '../../css/news/Noticias.css';
 import CustomNavbar from '../../components/CustomNavbar';
 
+
 function Noticia() {
     const [datosNoticia, setDatosNoticia] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
-    const [containerWidth, setContainerWidth] = useState(window.innerWidth);
-    const [containerHeight, setContainerHeight] = useState(window.innerHeight);
+    const [containerWidth] = useState(window.innerWidth);  // No setter needed
+    const [containerHeight] = useState(window.innerHeight);  // No setter needed
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,7 +29,6 @@ function Noticia() {
     
         fetchData();
     }, []);
-    
     
     const handleRowClick = (id_titulo) => {
         setSelectedId(id_titulo);
@@ -119,7 +119,7 @@ function Noticia() {
                     </div>
                 </div>
             </div>
-            <div id="tabla-container" class="px-4 py-4">
+            <div id="tabla-container" className="px-4 py-4">
                 <table className="table table-hover" style={{ borderCollapse: "separate", borderSpacing: "0 8px" }}>
                     <thead>
                         <tr style={{ borderBottom: "2px solid #04703F", backgroundColor:"#81b79e", }}>

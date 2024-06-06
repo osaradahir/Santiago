@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Actualización de useHistory a useNavigate
+import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Actualización de useHistory a useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,9 +18,20 @@ function Login() {
         },
         body: JSON.stringify({ nombre: username, contrasena: password }),
       });
+
       if (response.ok) {
-        // Manejar inicio de sesión exitoso
-        navigate('/menu'); // Redirigir a la página de menú
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.rol);
+
+        if (data.rol === 'administrador') {
+          navigate('/menu');
+        } else if (data.rol === 'director trasparencia') {
+          navigate('/transparencia/articulo');
+        } else {
+          navigate('/articulos'); // Ruta por defecto o para otros roles
+          
+        }
       } else {
         const data = await response.json();
         setError(data.detail);
@@ -35,7 +46,7 @@ function Login() {
     <div className="container">
       <h1 className="title">Santiago Tulatepec</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username" style={{color: "#04703F", fontSize: "1.5rem"}}>Usuario</label>
+        <label htmlFor="username" style={{ color: "#04703F", fontSize: "1.5rem" }}>Usuario</label>
         <div className="inputIcon">
           <img src="https://cdn-icons-png.freepik.com/512/1077/1077063.png" alt="Usuario" className="icon" />
           <div className="line"></div>
@@ -48,7 +59,7 @@ function Login() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <label htmlFor="password" style={{color: "#04703F", fontSize: "1.5rem"}}>Contraseña</label>
+        <label htmlFor="password" style={{ color: "#04703F", fontSize: "1.5rem" }}>Contraseña</label>
         <div className="inputIcon">
           <img src="https://cdn-icons-png.flaticon.com/512/747/747305.png" alt="Contraseña" className="icon" />
           <div className="line"></div>

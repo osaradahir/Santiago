@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/LoginForm';
 import Menu from './pages/Menu';
 import Usuarios from './pages/user/Usuarios';
@@ -20,6 +20,20 @@ import Eventos from './pages/events/Eventos';
 import EventoInsert from './pages/events/EventoInsert';
 import EventoUpdate from './pages/events/EventoUpdate';
 import Encuestas from './pages/surveys/Encuestas';
+import EncuestaInsert from './pages/surveys/EncuestaInsert';
+import Transparencia from './pages/transparency/Transparencia';
+import TransparenciaInsert from './pages/transparency/TransparenciaInsert';
+import TransparenciaUpdate from './pages/transparency/TransparenciaUpdate';
+import Fraccion from './pages/transparency/Fraccion';
+import FraccionInsert from './pages/transparency/FraccionInsert';
+import FraccionUpdate from './pages/transparency/FraccionUpdate';
+// Componente PrivateRoute para proteger rutas
+const PrivateRoute = ({ element, allowedRoles }) => {
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
+
+  return token && allowedRoles.includes(role) ? element : <Navigate to="/" />;
+};
 
 function App() {
   return (
@@ -27,25 +41,32 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/usuarios" element={<Usuarios />} />
-          <Route path="/usuarios/insertar" element={<UserInsert />} />
-          <Route path="/usuarios/actualizar" element={<UserUpdate />} />
-          <Route path="/pagina/logo" element={<Pagina />} />
-          <Route path="/pagina/logo/insertar" element={<PaginaInsert />} />
-          <Route path="/pagina/carrusel" element={<Carrusel />} />
-          <Route path="/pagina/carrusel/insertar" element={<CarruselInsert />} />
-          <Route path="/pagina/carrusel/actualizar" element={<CarrucelUpdate />} />
-          <Route path="/pagina/mapa" element={<Mapa />} />
-          <Route path="/pagina/mapa/insertar" element={<MapaInsert />} />
-          <Route path="/pagina/mapa/actualizar" element={<MapaUpdate />} />
-          <Route path="/noticias" element={<Noticias />} />
-          <Route path="/noticias/insertar" element={<NoticiaInsert />} />
-          <Route path="/noticias/actualizar" element={<NoticiaUpdate />} />
-          <Route path="/eventos" element={<Eventos />} />
-          <Route path="/eventos/insertar" element={<EventoInsert />} />
-          <Route path="/eventos/actualizar" element={<EventoUpdate />} />
-          <Route path="/encuestas" element={<Encuestas />} />
+          <Route path="/menu" element={<PrivateRoute element={<Menu />} allowedRoles={['administrador']} />} />
+          <Route path="/usuarios" element={<PrivateRoute element={<Usuarios />} allowedRoles={['administrador']} />} />
+          <Route path="/usuarios/insertar" element={<PrivateRoute element={<UserInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/usuarios/actualizar" element={<PrivateRoute element={<UserUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/logo" element={<PrivateRoute element={<Pagina />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/logo/insertar" element={<PrivateRoute element={<PaginaInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/carrusel" element={<PrivateRoute element={<Carrusel />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/carrusel/insertar" element={<PrivateRoute element={<CarruselInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/carrusel/actualizar" element={<PrivateRoute element={<CarrucelUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/mapa" element={<PrivateRoute element={<Mapa />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/mapa/insertar" element={<PrivateRoute element={<MapaInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/mapa/actualizar" element={<PrivateRoute element={<MapaUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/noticias" element={<PrivateRoute element={<Noticias />} allowedRoles={['administrador']} />} />
+          <Route path="/noticias/insertar" element={<PrivateRoute element={<NoticiaInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/noticias/actualizar" element={<PrivateRoute element={<NoticiaUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/eventos" element={<PrivateRoute element={<Eventos />} allowedRoles={['administrador']} />} />
+          <Route path="/eventos/insertar" element={<PrivateRoute element={<EventoInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/eventos/actualizar" element={<PrivateRoute element={<EventoUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/encuestas" element={<PrivateRoute element={<Encuestas />} allowedRoles={['administrador']} />} />
+          <Route path="/encuesta/insertar" element={<PrivateRoute element={<EncuestaInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/transparencia/articulo" element={<PrivateRoute element={<Transparencia />} allowedRoles={['director trasparencia', 'administrador']} />} />
+          <Route path="/transparencia/articulo/insertar" element={<PrivateRoute element={<TransparenciaInsert />} allowedRoles={['director trasparencia', 'administrador']} />} />
+          <Route path="/transparencia/articulo/actualizar" element={<PrivateRoute element={<TransparenciaUpdate />} allowedRoles={['director trasparencia', 'administrador']} />} />
+          <Route path="/transparencia/fraccion" element={<PrivateRoute element={<Fraccion />} allowedRoles={['director trasparencia', 'administrador']} />} />
+          <Route path="/transparencia/fraccion/insertar" element={<PrivateRoute element={<FraccionInsert />} allowedRoles={['director trasparencia', 'administrador']} />} />
+          <Route path="/transparencia/fraccion/actualizar" element={<PrivateRoute element={<FraccionUpdate />} allowedRoles={['director trasparencia', 'administrador']} />} />
         </Routes>
       </div>
     </Router>

@@ -2,26 +2,24 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; 
 import '../../css/user/Usuarios.css';
-import CustomNavbar from '../../components/CustomNavbar';
+import CustomNavbar from '../../components/CustomNavbar_02';
 
-function Usuarios() {
-    const [datosUsuarios, setDatosUsuarios] = useState([]);
+
+function Fraccion() {
+    const [datosFraccion, setDatosFraccion] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/usuario');
+                const response = await fetch('http://localhost:8000/fraccion');
                 const data = await response.json();
-                // Mapear los datos para ajustar el formato de 'estado' y 'permisos'
-                const usuariosConValoresString = data.map(usuario => ({
-                    ...usuario,
-                    estado: usuario.estado === '0' ? 'Inactivo' : 'Activo',
-                    permisos: usuario.permisos === '0' ? 'Director de Transparencia' : 
-                               usuario.permisos === '1' ? 'Administrador' :
-                               usuario.permisos === '2' ? 'Director de Área' : ''
-                }));                
-                setDatosUsuarios(usuariosConValoresString);
+                // Verificar si los datos recibidos son un array
+                if (Array.isArray(data)) {
+                    setDatosFraccion(data);
+                } else {
+                    console.error('Los datos recibidos no son un array:', data);
+                }
             } catch (error) {
                 console.error('Error al obtener los datos:', error);
             }
@@ -31,55 +29,48 @@ function Usuarios() {
     }, []);
     
     
-    const handleRowClick = (id_usuario) => {
+    const handleRowClick = (id_fraccion) => {
         // Verificar si la fila clicada ya está seleccionada
-        if (selectedId === id_usuario) {
+        if (selectedId === id_fraccion) {
             return; // Si ya está seleccionada, no hacemos nada
         } else {
-            setSelectedId(id_usuario); // Si no está seleccionada, la seleccionamos
-            console.log("ID del usuario seleccionado:", id_usuario); // Imprimir el ID del usuario seleccionado en la consola
+            setSelectedId(id_fraccion);
         }
-    };
-    
+    }
+
     const handleDelete = () => {
         if (selectedId) {
-            const confirmDelete = window.confirm('¿Seguro que deseas eliminar este usuario?');
+            const confirmDelete = window.confirm('¿Seguro que deseas eliminar esta fraccion?');
             if (confirmDelete) {
-                fetch(`http://localhost:8000/usuario/borrar/${selectedId}`, {
+                fetch(`http://localhost:8000/fraccion/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Error al eliminar el usuario');
+                        throw new Error('Error al eliminar el fraccion');
                     }
                     return response.json();
                 })
-                .then(data => {
-                    // Actualizar la lista de usuarios después de eliminar el usuario
-                    const updatedUsuarios = datosUsuarios.filter(usuario => usuario.id !== selectedId);
-                    setDatosUsuarios(updatedUsuarios);
-                    // Limpiar la selección
+                .then(() => {
+                    const updatedTransparencia = datosFraccion.filter(transparencia => transparencia.id_fraccion !== selectedId);
+                    setDatosFraccion(updatedTransparencia);
                     setSelectedId(null);
                 })
                 .catch(error => {
-                    console.error('Error al eliminar el usuario:', error);
+                    console.error('Error al eliminar la fraccion:', error);
                 });
             }
         } else {
-            alert('Por favor, selecciona un usuario para eliminar.');
+            alert('Por favor, selecciona una fraccion para eliminar.');
         }
-
-    };
-    
-    
-    
+    }
 
     return (
         <div className="app">
             <CustomNavbar />
             <div className="acontainer">
                 <div className="container d-flex justify-content-between align-items-center">
-                    <h1 className="fs-1"><b>Usuarios</b></h1>
+                    <h1 className="fs-1"><b>Fracciones</b></h1>
                     <div className="d-flex align-items-center">
                         <div className="input-group rounded-pill border border-1 me-2 custom-border">
                             <input
@@ -91,13 +82,13 @@ function Usuarios() {
                                 style={{ color: "#04703F"}}
                             />
                         </div>
-                        <Link to="/usuarios/insertar" className="link-dark text-decoration-none px-2">
+                        <Link to="/transparencia/fraccion/insertar" className="link-dark text-decoration-none px-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" fill="#04703F" className="bi bi-plus-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                             </svg>
                         </Link>
-                        <Link to={selectedId ? `/usuarios/actualizar?id_usuario=${selectedId}` : '#'} className="link-dark text-decoration-none px-2">
+                        <Link to={selectedId ? `/transparencia/fraccion/actualizar?id_fraccion=${selectedId}` : '#'} className="link-dark text-decoration-none px-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" fill="#04703F" className="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293z" />
                                 <path d="M13.752 4.396l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -115,31 +106,31 @@ function Usuarios() {
                 </div>
             </div>
             <div id="tabla-container" className="px-4 py-4">
-                <table className="table table-hover" style={{ borderCollapse: "separate", borderSpacing: "0 8px" }}>
+                <table className="table table-hover" style={{ backgroundColor: "transparent", borderCollapse: "separate", borderSpacing: "0 8px" }}>
                     <thead>
                         <tr style={{ borderBottom: "2px solid #04703F" }}>
+                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Fraccion</th>
+                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Numero de Articulo</th>
+                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Descrpcion</th>
                             <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Area</th>
-                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Nombre</th>
-                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Estado</th>
-                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Rol</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
-                        {datosUsuarios.map((usuario) => (
-                        <tr
-                            key={usuario.id}
-                            onClick={() => handleRowClick(usuario.id)}
-                            className={selectedId === usuario.id ? 'selected' : ''}
-                            style={{  cursor: "pointer" }}
-                        >
-                            <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{usuario.area}</td>
-                            <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{usuario.nombre}</td>
-                            <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{usuario.estado}</td>
-                            <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{usuario.permisos}</td>
-                        </tr>
-                    ))}
+                        {datosFraccion.map((transparencia) => (
+                            <tr
+                                key={transparencia.id_fraccion}
+                                onClick={() => handleRowClick(transparencia.id_fraccion)}
+                                className={selectedId === transparencia.id_fraccion ? 'selected' : ''}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{transparencia.fraccion}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{transparencia.num_articulo}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{transparencia.descripcion}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{transparencia.area}</td>
 
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -148,4 +139,4 @@ function Usuarios() {
     );
 }
 
-export default Usuarios;
+export default Fraccion;
