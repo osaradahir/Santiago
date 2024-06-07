@@ -1,7 +1,12 @@
+{/* We use this class to implement login functions in the server and authenticate the user
+we also use this to represent to the user this transaction on the front end. */ }
+
+//React and style imports
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
 
+//Primary function with HTML methods for login
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -11,6 +16,7 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      //In this try we send a POST to the server indicating it's a json object with the username and password por the auth
       const response = await fetch('http://localhost:8000/login', {
         method: 'POST',
         headers: {
@@ -18,12 +24,12 @@ function Login() {
         },
         body: JSON.stringify({ nombre: username, contrasena: password }),
       });
-
+      //If the response succeds we set the local tokens
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.rol);
-
+        //Here we asign thee role to the user
         if (data.rol === 'administrador') {
           navigate('/menu');
         } else if (data.rol === 'director trasparencia') {
@@ -32,6 +38,7 @@ function Login() {
           navigate('/articulos'); // Ruta por defecto o para otros roles
           
         }
+      //If we recive and error or the con fails we manage the error state  
       } else {
         const data = await response.json();
         setError(data.detail);
@@ -42,6 +49,7 @@ function Login() {
     }
   };
 
+  //We return the HTML block necesary for the function to proceed with the parameters returned from the HTTP call
   return (
     <div className="container">
       <h1 className="title">Santiago Tulatepec</h1>
