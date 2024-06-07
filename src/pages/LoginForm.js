@@ -26,7 +26,7 @@ function Login() {
 
         if (data.rol === 'administrador') {
           navigate('/menu');
-        } else if (data.rol === 'director trasparencia') {
+        } else if (data.rol === 'director transparencia') {
           navigate('/transparencia/articulo');
         } else {
           navigate('/articulos'); // Ruta por defecto o para otros roles
