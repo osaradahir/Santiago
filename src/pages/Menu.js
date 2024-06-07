@@ -1,6 +1,10 @@
+{/* This module uses a simple HTML section to represent navigaton buttons for every option on the menu */ }
+
+//Principal imports
 import React from 'react';
 import '../css/Menu.css';
 
+//Function to create and represent nav buttons
 function Menu() {
     return (
         <div className="container">
