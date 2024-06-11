@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import CustomNavbar from '../../components/CustomNavbar';
+import CustomNavbar from '../../components/CustomNavbar_03';
 
 function TransparenciaInsert(){
     const [newTransparencia, setNewTransparencia] = useState({

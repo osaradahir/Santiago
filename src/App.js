@@ -29,7 +29,10 @@ import FraccionInsert from './pages/transparency/FraccionInsert';
 import FraccionUpdate from './pages/transparency/FraccionUpdate';
 import Documentos from './pages/transparency/Documentos';
 import DocumentosInsert from './pages/transparency/DocumentosInsert';
-
+import Articulos from './pages/officials/Articulos';
+import Fracciones from './pages/officials/Fracciones';
+import Archivos from './pages/officials/Archivos';
+import ArchivoInsert from './pages/officials/ArchivoInsert';
 // Componente PrivateRoute para proteger rutas
 const PrivateRoute = ({ element, allowedRoles }) => {
   const token = localStorage.getItem('token');
@@ -72,6 +75,10 @@ function App() {
           <Route path="/transparencia/fraccion/actualizar" element={<PrivateRoute element={<FraccionUpdate />} allowedRoles={['director transparencia', 'administrador']} />} />
           <Route path="/transparencia/archivo" element={<PrivateRoute element={<Documentos />} allowedRoles={['director transparencia', 'administrador']} />} />
           <Route path="/transparencia/archivo/insertar" element={<PrivateRoute element={<DocumentosInsert />} allowedRoles={['director transparencia', 'administrador']} />} />
+          <Route path="/funcionarios/articulo" element={<PrivateRoute element={<Articulos />} allowedRoles={['director area']} />} />
+          <Route path="/funcionarios/fracciones" element={<PrivateRoute element={<Fracciones />} allowedRoles={['director area']} />} />
+          <Route path="/funcionarios/archivos" element={<PrivateRoute element={<Archivos />} allowedRoles={['director area']} />} />
+          <Route path="/funcionarios/archivos/insertar" element={<PrivateRoute element={<ArchivoInsert />} allowedRoles={['director area']} />} />
         </Routes>
       </div>
     </Router>

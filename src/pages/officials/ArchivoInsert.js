@@ -16,6 +16,16 @@ function DocumentosInsert() {
     const fileInputRef = useRef(null);
 
     useEffect(() => {
+        const fraccionID = localStorage.getItem('fraccionID');
+        if (fraccionID) {
+            setNewDocumento((prevDocumento) => ({
+                ...prevDocumento,
+                id_fraccion: fraccionID
+            }));
+        }
+    }, []);
+
+    useEffect(() => {
         const fetchFraccion = async () => {
             try {
                 const response = await fetch('http://localhost:8000/fraccion');
@@ -92,7 +102,10 @@ function DocumentosInsert() {
                 file: null
             });
             setFileName("");
-            window.location.href = '/transparencia/archivo';
+             // Obtener id_fraccion del localStorage
+            const fraccionID = localStorage.getItem('fraccionID');
+             // Redirigir a la nueva página con el id_fraccion
+            window.location.href = `/funcionarios/archivos?fraccion=${fraccionID}`;
 
         } catch (error) {
             console.error('Error al enviar los datos:', error);
@@ -117,6 +130,7 @@ function DocumentosInsert() {
                             value={newDocumento.id_fraccion}
                             onChange={handleInputChange}
                             required
+                            disabled
                         >
                             <option value="">Selecciona un artículo</option>
                             {fraccion.map((item, index) => (
@@ -181,7 +195,7 @@ function DocumentosInsert() {
                     </div>
                 </div>
                 <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
-                    <Link to="/transparencia/archivo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
+                    <Link to={`/funcionarios/archivos?fraccion=${newDocumento.id_fraccion}`} className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
                     <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
                 </div>
             </form>

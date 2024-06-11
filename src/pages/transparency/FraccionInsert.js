@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import CustomNavbar from '../../components/CustomNavbar';
+import CustomNavbar from '../../components/CustomNavbar_03';
 
 function FraccionInsert() {
     const [newFraccion, setNewFraccion] = useState({
@@ -95,7 +95,7 @@ function FraccionInsert() {
                 <div id="form-container-input" className="d-flex flex-column align-items-center">
                     <div className="form-group d-flex py-2 w-100 justify-content-center">
                         <input
-                            type="number"
+                            type="text"
                             id="fraccion"
                             name="fraccion"
                             className="fs-2 border-bottom-only no-rounded"

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const CustomNavbar = () => {
 
     const handleLogout = () => {
-        localStorage.removeItem('token'); // Borra el token del almacenamiento local
+        localStorage.clear();// Borra el token del almacenamiento local
         window.location.href = '/'; // Redirige al usuario a la página de inicio de sesión
     };
 

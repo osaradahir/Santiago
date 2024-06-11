@@ -23,13 +23,14 @@ function Login() {
         const data = await response.json();
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.rol);
+        localStorage.setItem('area', data.area)
 
         if (data.rol === 'administrador') {
           navigate('/menu');
         } else if (data.rol === 'director transparencia') {
           navigate('/transparencia/articulo');
         } else {
-          navigate('/articulos'); // Ruta por defecto o para otros roles
+          navigate('/funcionarios/articulo');
           
         }
       } else {

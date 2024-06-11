@@ -25,8 +25,6 @@ const CustomNavbar = () => {
                     className="custom-dropdown-menu"
                     style={{ marginRight: '30px' }}
                 >
-                    <NavDropdown.Item as={Link} to="/menu">Menu</NavDropdown.Item>
-                    <NavDropdown.Divider />
                     <NavDropdown.Item onClick={handleLogout}>Salir</NavDropdown.Item>
                 </NavDropdown>
             </Nav>
