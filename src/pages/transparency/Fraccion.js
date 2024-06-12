@@ -8,6 +8,8 @@ import CustomNavbar from '../../components/CustomNavbar_02';
 function Fraccion() {
     const [datosFraccion, setDatosFraccion] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,6 +67,19 @@ function Fraccion() {
         }
     }
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    
+    const filteredData = searchTerm ? 
+    datosFraccion.filter(fraccion => 
+        fraccion.fraccion.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        fraccion.num_articulo.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        fraccion.descripcion.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        fraccion.area.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    ) : datosFraccion;
+
+
     return (
         <div className="app">
             <CustomNavbar />
@@ -73,14 +88,16 @@ function Fraccion() {
                     <h1 className="fs-1"><b>Fracciones</b></h1>
                     <div className="d-flex align-items-center">
                         <div className="input-group rounded-pill border border-1 me-2 custom-border">
-                            <input
-                                type="search"
-                                className="form-control rounded-pill border border-2 text-center custom-border"
-                                placeholder="Buscar..."
-                                aria-label="Buscar"
-                                aria-describedby="search-addon"
-                                style={{ color: "#04703F"}}
-                            />
+                        <input
+                            type="search"
+                            className="form-control rounded-pill border border-2 text-center custom-border"
+                            placeholder="Buscar..."
+                            aria-label="Buscar"
+                            aria-describedby="search-addon"
+                            style={{ color: "#04703F"}}
+                            onChange={handleSearch}
+                        />
+
                         </div>
                         <Link to="/transparencia/fraccion/insertar" className="link-dark text-decoration-none px-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" fill="#04703F" className="bi bi-plus-circle" viewBox="0 0 16 16">
@@ -117,18 +134,17 @@ function Fraccion() {
                         </tr>
                     </thead>
                     <tbody>
-                        {datosFraccion.map((transparencia) => (
+                        {filteredData.map((fraccion) => (
                             <tr
-                                key={transparencia.id_fraccion}
-                                onClick={() => handleRowClick(transparencia.id_fraccion)}
-                                className={selectedId === transparencia.id_fraccion ? 'selected' : ''}
+                                key={fraccion.id_fraccion}
+                                onClick={() => handleRowClick(fraccion.id_fraccion)}
+                                className={selectedId === fraccion.id_fraccion ? 'selected' : ''}
                                 style={{ cursor: "pointer" }}
                             >
-                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{transparencia.fraccion}</td>
-                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{transparencia.num_articulo}</td>
-                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{transparencia.descripcion}</td>
-                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{transparencia.area}</td>
-
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{fraccion.fraccion}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{fraccion.num_articulo}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{fraccion.descripcion}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{fraccion.area}</td>
                             </tr>
                         ))}
                     </tbody>

@@ -7,6 +7,7 @@ import CustomNavbar from '../../components/CustomNavbar';
 function Evento() {
     const [datosEvento, setDatosEvento] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,6 +73,15 @@ function Evento() {
         return `${partesFecha[2]}-${partesFecha[1]}-${partesFecha[0]}`; // Formatea como "dd-mm-yyyy"
     };
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    
+    const filteredData = searchTerm ? 
+        datosEvento.filter(evento => 
+            evento.titulo.toString().toLowerCase().includes(searchTerm.toLowerCase())  ||
+            convertirFecha(evento.fecha).toString().toLowerCase().includes(searchTerm.toLowerCase())
+    ) : datosEvento;
 
 
     return (
@@ -89,6 +99,7 @@ function Evento() {
                                 aria-label="Buscar"
                                 aria-describedby="search-addon"
                                 style={{ color: "#04703F"}}
+                                onChange={handleSearch}
                             />
                         </div>
                         <Link to="/eventos/insertar" className="link-dark text-decoration-none px-2">
@@ -125,7 +136,7 @@ function Evento() {
                         </tr>
                     </thead>
                     <tbody>
-                        {datosEvento.map((evento) => (
+                        {filteredData.map((evento) => (
                             <tr
                                 key={evento.id_evento}
                                 onClick={() => handleRowClick(evento.id_evento)}

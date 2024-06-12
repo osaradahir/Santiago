@@ -7,6 +7,7 @@ import CustomNavbar from '../../components/CustomNavbar_01';
 function Mapa() {
     const [datosMapa, setDatosMapa] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -59,6 +60,16 @@ function Mapa() {
         }
     };
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    
+    const filteredData = searchTerm ? 
+        datosMapa.filter(mapa => 
+            mapa.lugar.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    ) : datosMapa;
+
+
 
     return (
         <div className="app">
@@ -75,6 +86,7 @@ function Mapa() {
                                 aria-label="Buscar"
                                 aria-describedby="search-addon"
                                 style={{ color: "#04703F"}}
+                                onChange={handleSearch}
                             />
                         </div>
                         <Link to="/pagina/mapa/insertar" className="link-dark text-decoration-none px-2">
@@ -110,7 +122,7 @@ function Mapa() {
                         </tr>
                     </thead>
                     <tbody>
-                        {datosMapa.map((mapa) => (
+                        {filteredData.map((mapa) => (
                             <tr
                                 key={mapa.id_ubicacion}
                                 onClick={() => handleRowClick(mapa.id_ubicacion)}

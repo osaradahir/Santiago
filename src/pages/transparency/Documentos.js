@@ -8,6 +8,7 @@ function Documentos() {
     const [datosDocumentos, setDatosDocumentos] = useState([]);
     const [fracciones, setFracciones] = useState({});
     const [selectedId, setSelectedId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -106,6 +107,17 @@ function Documentos() {
         }
     }
     
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredDocumentos = searchTerm ?
+    datosDocumentos.filter(documento => 
+        fracciones[documento.id_fraccion].toLowerCase().includes(searchTerm.toLowerCase()) ||
+        documento.trimestre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        documento.año.toString().includes(searchTerm.toLowerCase()) ||
+        documento.documento.toLowerCase().includes(searchTerm.toLowerCase())
+    ): datosDocumentos;
 
     return (
         <div className="app">
@@ -122,6 +134,7 @@ function Documentos() {
                                 aria-label="Buscar"
                                 aria-describedby="search-addon"
                                 style={{ color: "#04703F"}}
+                                onChange={handleSearch}
                             />
                         </div>
                         <Link to="/transparencia/archivo/insertar" className="link-dark text-decoration-none px-2">
@@ -163,7 +176,7 @@ function Documentos() {
                         </tr>
                     </thead>
                     <tbody>
-                        {datosDocumentos.map((documento) => (
+                        {filteredDocumentos.map((documento) => (
                             <tr
                                 key={documento.id_documento}
                                 onClick={() => handleRowClick(documento.id_documento)}

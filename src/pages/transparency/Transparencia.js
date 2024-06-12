@@ -8,6 +8,7 @@ import CustomNavbar from '../../components/CustomNavbar_02';
 function Transparencia() {
     const [datosTransparencia, setDatosTransparencia] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,7 +28,6 @@ function Transparencia() {
     
         fetchData();
     }, []);
-    
     
     const handleRowClick = (id_articulo) => {
         // Verificar si la fila clicada ya está seleccionada
@@ -65,6 +65,16 @@ function Transparencia() {
         }
     }
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    }
+
+    const filteredData = searchTerm ? 
+    datosTransparencia.filter(transparencia => 
+        transparencia.num_articulo.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    ) : datosTransparencia;
+
+
     return (
         <div className="app">
             <CustomNavbar />
@@ -72,7 +82,7 @@ function Transparencia() {
                 <div className="container d-flex justify-content-between align-items-center">
                     <h1 className="fs-1"><b>Articulos</b></h1>
                     <div className="d-flex align-items-center">
-                        <div className="input-group rounded-pill border border-1 me-2 custom-border">
+                    <div className="input-group rounded-pill border border-1 me-2 custom-border">
                             <input
                                 type="search"
                                 className="form-control rounded-pill border border-2 text-center custom-border"
@@ -80,6 +90,8 @@ function Transparencia() {
                                 aria-label="Buscar"
                                 aria-describedby="search-addon"
                                 style={{ color: "#04703F"}}
+                                value={searchTerm}
+                                onChange={handleSearch}
                             />
                         </div>
                         <Link to="/transparencia/articulo/insertar" className="link-dark text-decoration-none px-2">
@@ -113,7 +125,7 @@ function Transparencia() {
                         </tr>
                     </thead>
                     <tbody>
-                        {datosTransparencia.map((transparencia) => (
+                        {filteredData.map((transparencia) => (
                             <tr
                                 key={transparencia.id_articulo}
                                 onClick={() => handleRowClick(transparencia.id_articulo)}

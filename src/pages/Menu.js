@@ -14,8 +14,9 @@ function Menu() {
                     <a href="/noticias" className="button">Noticias</a>
                     <a href="/eventos" className="button">Eventos</a>
                 </div>
-                <div className="bottom">
+                <div className="right">
                     <a href="/encuestas" className="button">Encuestas</a>
+                    <a href="/transparencia/articulo" className="button">Transparencia</a>
                 </div>
             </div>
         </div>

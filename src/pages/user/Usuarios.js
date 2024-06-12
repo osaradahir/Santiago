@@ -7,6 +7,7 @@ import CustomNavbar from '../../components/CustomNavbar';
 function Usuarios() {
     const [datosUsuarios, setDatosUsuarios] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -72,7 +73,18 @@ function Usuarios() {
     };
     
     
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
     
+    const filteredData = searchTerm 
+    ? datosUsuarios.filter(usuario => 
+        usuario.area?.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        usuario.nombre?.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+        usuario.permisos?.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||  // Asegúrate de utilizar 'permisos' en lugar de 'rol'
+        usuario.estado?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    ) 
+    : datosUsuarios;
 
     return (
         <div className="app">
@@ -89,6 +101,7 @@ function Usuarios() {
                                 aria-label="Buscar"
                                 aria-describedby="search-addon"
                                 style={{ color: "#04703F"}}
+                                onChange={handleSearch}
                             />
                         </div>
                         <Link to="/usuarios/insertar" className="link-dark text-decoration-none px-2">
@@ -126,7 +139,7 @@ function Usuarios() {
                         </tr>
                     </thead>
                     <tbody>
-                        {datosUsuarios.map((usuario) => (
+                        {filteredData.map((usuario) => (
                         <tr
                             key={usuario.id}
                             onClick={() => handleRowClick(usuario.id)}

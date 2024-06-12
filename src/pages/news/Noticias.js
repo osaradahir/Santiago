@@ -10,6 +10,7 @@ function Noticia() {
     const [selectedId, setSelectedId] = useState(null);
     const [containerWidth] = useState(window.innerWidth);  // No setter needed
     const [containerHeight] = useState(window.innerHeight);  // No setter needed
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -79,6 +80,16 @@ function Noticia() {
 
     const tamañoOptimo = calcularTamañoOptimo(containerWidth, containerHeight);
 
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+    
+    const filteredData = searchTerm ? 
+        datosNoticia.filter(noticia => 
+            noticia.titulo.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    ) : datosNoticia;
+
+
     return (
         <div className="app">
             <CustomNavbar />
@@ -94,6 +105,7 @@ function Noticia() {
                                 aria-label="Buscar"
                                 aria-describedby="search-addon"
                                 style={{ color: "#04703F"}}
+                                onChange={handleSearch}
                             />
                         </div>
                         <Link to="/noticias/insertar" className="link-dark text-decoration-none px-2">
@@ -129,7 +141,7 @@ function Noticia() {
                         </tr>
                     </thead>
                     <tbody >
-                        {datosNoticia.map((noticia) => (
+                        {filteredData.map((noticia) => (
                             <tr
                                 key={noticia.id_titulo}
                                 onClick={() => handleRowClick(noticia.id_titulo)}
