@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; 
 import '../../css/surveys/Encuestas.css';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion';
 
 function Encuestas() {
     const [datosEncuestas, setDatosEncuestas] = useState([]);
@@ -11,7 +12,7 @@ function Encuestas() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/encuesta');
+                const response = await fetch(`${host}encuesta`);
                 const data = await response.json();
                 // Mapear los datos para ajustar el formato de 'estado' y 'permisos'
                 const encuestasConValoresString = data.map(encuesta => ({
@@ -39,7 +40,7 @@ function Encuestas() {
         if (selectedId) {
             const confirmDelete = window.confirm('¿Seguro que deseas eliminar esta encuesta?');
             if (confirmDelete) {
-                fetch(`http://localhost:8000/encuesta/borrar/${selectedId}`, {
+                fetch(`${host}encuesta/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {

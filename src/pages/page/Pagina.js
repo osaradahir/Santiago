@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; 
 import '../../css/page/Pagina.css';
 import CustomNavbar from '../../components/CustomNavbar_01';
+import {host} from '../../conexion';
 
 function Pagina() {
     const [logo, setLogo] = useState(null);
@@ -12,7 +13,7 @@ function Pagina() {
     useEffect(() => {
         const fetchLogo = async () => {
             try {
-                const response = await fetch('http://localhost:8000/logo');
+                const response = await fetch(`${host}logo`);
                 const data = await response.json();
                 if (data && data.length > 0) {
                     setLogo(data[0]); // Asumimos que solo hay un logo activo
@@ -69,7 +70,7 @@ function Pagina() {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch('http://localhost:8000/logo/borrar', {
+            const response = await fetch(`${host}logo/borrar`, {
                 method: 'POST',
             });
 
@@ -114,7 +115,7 @@ function Pagina() {
             </div>
             <div id="logo-container" className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
                 {logo ? (
-                    <img src={`http://localhost:8000/${logo.ruta}${logo.archivo}`} alt="Logo" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, marginTop: '25%'}} />
+                    <img src={`${host}${logo.ruta}${logo.archivo}`} alt="Logo" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, marginTop: '25%'}} />
                 ) : (
                     <p>No hay un logo disponible.</p>
                 )}

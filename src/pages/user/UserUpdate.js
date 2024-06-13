@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomNavbar from '../../components/CustomNavbar';
 import { Link, useLocation } from 'react-router-dom';
 import '../../css/user/Usuarios.css';
+import {host} from '../../conexion';
 
 function UserUpdate() {
     const [newUser, setNewUser] = useState({
@@ -19,7 +20,7 @@ function UserUpdate() {
 
     useEffect(() => {
         if (userID) {
-            fetch(`http://localhost:8000/usuario/${userID}`)
+            fetch(`${host}${userID}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Datos del usuario:', data);
@@ -50,7 +51,7 @@ function UserUpdate() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8000/usuario/editar/${userID}`, {
+            const response = await fetch(`${host}usuario/editar/${userID}`, {
                 method: 'PUT', // Cambiar a PUT en lugar de POST
                 headers: {
                     'Content-Type': 'application/json'

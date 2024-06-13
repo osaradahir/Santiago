@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion';
 
 function MapaInsert() {
     const [newUbication, setNewUbication] = useState({
@@ -32,7 +33,7 @@ function MapaInsert() {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/ubicacion/crear', {
+            const response = await fetch(`${host}ubicacion/crear`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

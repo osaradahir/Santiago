@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; 
 import '../../css/user/Usuarios.css';
 import CustomNavbar from '../../components/CustomNavbar_02';
+import {host} from '../../conexion';
 
 
 function Transparencia() {
@@ -13,7 +14,7 @@ function Transparencia() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/articulo');
+                const response = await fetch(`${host}articulo`);
                 const data = await response.json();
                 // Verificar si los datos recibidos son un array
                 if (Array.isArray(data)) {
@@ -42,7 +43,7 @@ function Transparencia() {
         if (selectedId) {
             const confirmDelete = window.confirm('¿Seguro que deseas eliminar este artículo?');
             if (confirmDelete) {
-                fetch(`http://localhost:8000/articulo/borrar/${selectedId}`, {
+                fetch(`${host}articulo/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {

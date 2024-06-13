@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar_03';
+import {host} from '../../conexion'
 
 function TransparenciaInsert(){
     const [newTransparencia, setNewTransparencia] = useState({
@@ -20,7 +21,7 @@ function TransparenciaInsert(){
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:8000/articulo/crear', {
+                const response = await fetch(`${host}articulo/crear`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

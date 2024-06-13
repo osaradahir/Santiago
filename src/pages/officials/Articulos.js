@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/Articulos.css';
 import CustomNavbar from '../../components/CustomNavbar_03';
+import {host} from '../../conexion'
 
 function Articulos(){
     const [datosArticulos, setDatosArticulos] = useState([]);
@@ -10,7 +11,7 @@ function Articulos(){
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/articulo');
+                const response = await fetch(`${host}articulo`);
                 const data = await response.json();
                 // Verificar si los datos recibidos son un array
                 if (Array.isArray(data)) {

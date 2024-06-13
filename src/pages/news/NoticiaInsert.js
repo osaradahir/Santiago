@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion';
 
 function NoticiaInsert() {
     const [newNoticia, setNewNoticia] = useState({
@@ -41,7 +42,7 @@ function NoticiaInsert() {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/noticia/crear', {
+                const response = await fetch(`${host}noticia/crear`, {
                 method: 'POST',
                 body: formData
             });

@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useLocation } from 'react-router-dom';
 import '../../css/Articulos.css';
 import CustomNavbar from '../../components/CustomNavbar_03';
+import {host} from '../../conexion';
 
 function Fracciones() {
     const [datosFracciones, setDatosFracciones] = useState([]);
@@ -14,7 +15,7 @@ function Fracciones() {
 
     useEffect(() => {
         if (articuloID && storedArea) {
-            fetch(`http://localhost:8000/fracciones/busqueda?num_articulo=${articuloID}&area=${storedArea}`)
+            fetch(`${host}fracciones/busqueda?num_articulo=${articuloID}&area=${storedArea}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error en la respuesta de la API');

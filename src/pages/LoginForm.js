@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
+import {host} from '../conexion';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -11,7 +12,7 @@ function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/login', {
+      const response = await fetch(`${host}login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../../css/page/Pagina.css';
 import CustomNavbar from '../../components/CustomNavbar_01';
+import {host} from '../../conexion';
 
 function Carrusel() {
     const [carrusel, setCarrusel] = useState([]);
@@ -13,7 +14,7 @@ function Carrusel() {
     useEffect(() => {
         const fetchCarrusel = async () => {
             try {
-                const response = await fetch('http://localhost:8000/avisos');
+                const response = await fetch(`${host}avisos`);
                 const data = await response.json();
                 if (data && data.length > 0) {
                     setCarrusel(data); // Guardamos todos los avisos
@@ -63,7 +64,7 @@ function Carrusel() {
         }
     
         try {
-            await fetch(`http://localhost:8000/aviso/borrar/${selectedId}`, {
+            await fetch(`${host}aviso/borrar/${selectedId}`, {
                 method: 'DELETE',
             });
             setCarrusel(carrusel.filter(aviso => aviso.id_aviso !== selectedId));
@@ -122,7 +123,7 @@ function Carrusel() {
                     >
                         {aviso.imagen ? (
                             <img 
-                                src={`http://localhost:8000/${aviso.ruta}${aviso.imagen}`} 
+                                src={`${host}${aviso.ruta}${aviso.imagen}`} 
                                 alt={aviso.imagen} 
                                 style={{ 
                                     width: '100%', 

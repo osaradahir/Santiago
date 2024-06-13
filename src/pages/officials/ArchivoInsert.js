@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar_03';
+import {host} from '../../conexion';
 
 function DocumentosInsert() {
     const [newDocumento, setNewDocumento] = useState({
@@ -28,7 +29,7 @@ function DocumentosInsert() {
     useEffect(() => {
         const fetchFraccion = async () => {
             try {
-                const response = await fetch('http://localhost:8000/fraccion');
+                const response = await fetch(`${host}fraccion`);
                 const data = await response.json();
                 setFraccion(data);
             } catch (error) {
@@ -42,7 +43,7 @@ function DocumentosInsert() {
     useEffect(() => {
         const fetchAño = async () => {
             try {
-                const response = await fetch('http://localhost:8000/año');
+                const response = await fetch(`${host}año`);
                 const data = await response.json();
                 setAño(data);
             } catch (error) {
@@ -84,7 +85,7 @@ function DocumentosInsert() {
         formData.append('file', newDocumento.file);
 
         try {
-            const response = await fetch('http://localhost:8000/documento/crear', {
+            const response = await fetch(`${host}documento/crear`, {
                 method: 'POST',
                 body: formData
             });

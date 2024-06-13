@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useLocation } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion';
 
 function NoticiaUpdate() {
     const [newNoticia, setNewNoticia] = useState({
@@ -19,7 +20,7 @@ function NoticiaUpdate() {
     
     useEffect(() => {
         if (noticiaID) {
-            fetch(`http://localhost:8000/noticia/${noticiaID}`)
+            fetch(`${host}noticia/${noticiaID}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Datos de la noticia:', data);
@@ -63,7 +64,7 @@ function NoticiaUpdate() {
         }
         
         try {
-            const response = await fetch(`http://localhost:8000/noticia/editar/${noticiaID}`, {
+            const response = await fetch(`${host}noticia/editar/${noticiaID}`, {
                 method: 'PUT',
                 body: formData
             });

@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../../css/events/Eventos.css';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion'
 
 
 function EventoInsert() {
@@ -24,7 +25,7 @@ function EventoInsert() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:8000/evento/crear', {
+            const response = await fetch(`${host}evento/crear`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

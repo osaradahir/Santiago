@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar_03';
+import { host } from '../../conexion';
 
 function DocumentosInsert() {
     const [newDocumento, setNewDocumento] = useState({
@@ -18,7 +19,7 @@ function DocumentosInsert() {
     useEffect(() => {
         const fetchFraccion = async () => {
             try {
-                const response = await fetch('http://localhost:8000/fraccion');
+                const response = await fetch(`${host}fraccion`);
                 const data = await response.json();
                 setFraccion(data);
             } catch (error) {
@@ -32,7 +33,7 @@ function DocumentosInsert() {
     useEffect(() => {
         const fetchAño = async () => {
             try {
-                const response = await fetch('http://localhost:8000/año');
+                const response = await fetch(`${host}año`);
                 const data = await response.json();
                 setAño(data);
             } catch (error) {
@@ -74,7 +75,7 @@ function DocumentosInsert() {
         formData.append('file', newDocumento.file);
 
         try {
-            const response = await fetch('http://localhost:8000/documento/crear', {
+            const response = await fetch(`${host}documento/crear`, {
                 method: 'POST',
                 body: formData
             });
@@ -145,15 +146,15 @@ function DocumentosInsert() {
                     
                     <div className="form-group d-flex py-2 w-100 justify-content-center">
                         <select
-                            id="año"
-                            name="año"
+                            id="periodo"
+                            name="periodo"
                             className="fs-2 border-bottom-only no-rounded"
-                            value={newDocumento.año}
+                            value={newDocumento.periodo}
                             onChange={handleInputChange}
                             required
                         >
-                            <option value="">Selecciona un año</option>
-                            {año.map((item, index) => (
+                            <option value="">Selecciona un periodo</option>
+                            {periodo.map((item, index) => (
                                 <option key={index} value={item.año}>
                                     {item.año}
                                 </option>

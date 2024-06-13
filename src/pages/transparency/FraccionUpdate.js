@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useLocation } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar_03';
+import {host} from '../../conexion';
 
 function FraccionUpdate() {
     const [newFraccion, setNewFraccion] = useState({
@@ -21,7 +22,7 @@ function FraccionUpdate() {
         console.log('fraccionID:', fraccionID); // Debugging
 
         if (fraccionID) {
-            fetch(`http://localhost:8000/fraccion/${fraccionID}`)
+            fetch(`${host}fraccion/${fraccionID}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error en la respuesta de la API');
@@ -49,7 +50,7 @@ function FraccionUpdate() {
     useEffect(() => {
         const fetchNumArticulo = async () => {
             try {
-                const response = await fetch('http://localhost:8000/articulo');
+                const response = await fetch(`${host}articulo`);
                 const data = await response.json();
                 const extractedNumArticulo = data.map(articulo => articulo.num_articulo);
                 const uniqueNumArticulo = [...new Set(extractedNumArticulo)];
@@ -65,7 +66,7 @@ function FraccionUpdate() {
     useEffect(() => {
         const fetchUsuarios = async () => {
             try {
-                const response = await fetch('http://localhost:8000/usuario'); // Asegúrate de que la URL sea correcta
+                const response = await fetch(`${host}usuario`); // Asegúrate de que la URL sea correcta
                 const data = await response.json();
                 if (Array.isArray(data)) {
                     const extractedAreas = data.map(usuario => usuario.area);
@@ -94,7 +95,7 @@ function FraccionUpdate() {
         e.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:8000/fraccion/editar/${fraccionID}`, {
+            const response = await fetch(`${host}fraccion/editar/${fraccionID}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

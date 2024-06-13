@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar';
+import { host } from '../../conexion';
 
 function CarruselUpdate() {
     const fileInputRef = useRef(null);
@@ -15,7 +16,7 @@ function CarruselUpdate() {
 
     useEffect(() => {
         if (avisoID) {
-            fetch(`http://localhost:8000/aviso/${avisoID}`)
+            fetch(`${host}/aviso/${avisoID}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Datos del aviso:', data);
@@ -60,7 +61,7 @@ function CarruselUpdate() {
         formData.append('estado', estado);
 
         try {
-            const response = await fetch(`http://localhost:8000/aviso/editar/${avisoID}`, {
+            const response = await fetch(`${host}aviso/editar/${avisoID}`, {
                 method: 'PUT',
                 body: formData
             });

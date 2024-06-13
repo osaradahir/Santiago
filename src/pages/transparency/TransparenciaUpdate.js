@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CustomNavbar from '../../components/CustomNavbar_03';
+import {host} from '../../conexion';
 
 function TransparenciaUpdate() {
     const [transparencia, setTransparencia] = useState({
@@ -14,7 +15,7 @@ function TransparenciaUpdate() {
 
     useEffect(() => {
         if (transparenciaID) {
-            fetch(`http://localhost:8000/articulo/${transparenciaID}`)
+            fetch(`${host}articulo/${transparenciaID}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('No se encontraron datos de transparencia');
@@ -44,7 +45,7 @@ function TransparenciaUpdate() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetch(`http://localhost:8000/articulo/editar/${transparenciaID}`, {
+        fetch(`${host}articulo/editar/${transparenciaID}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

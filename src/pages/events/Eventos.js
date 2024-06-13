@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; 
 import '../../css/events/Eventos.css';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion';
 
 function Evento() {
     const [datosEvento, setDatosEvento] = useState([]);
@@ -12,7 +13,7 @@ function Evento() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/evento');
+                const response = await fetch(`${host}evento`);
                 const data = await response.json();
                 // Verificar si los datos recibidos son un array
                 if (Array.isArray(data)) {
@@ -38,7 +39,7 @@ function Evento() {
         if (selectedId) {
             const confirmDelete = window.confirm('¿Seguro que deseas eliminar este evento?');
             if (confirmDelete) {
-                fetch(`http://localhost:8000/evento/borrar/${selectedId}`, {
+                fetch(`${host}evento/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {

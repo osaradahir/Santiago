@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; 
 import '../../css/user/Usuarios.css';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion';
 
 function Usuarios() {
     const [datosUsuarios, setDatosUsuarios] = useState([]);
@@ -12,7 +13,7 @@ function Usuarios() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/usuario');
+                const response = await fetch(`${host}usuario`);
                 const data = await response.json();
                 // Mapear los datos para ajustar el formato de 'estado' y 'permisos'
                 const usuariosConValoresString = data.map(usuario => ({
@@ -46,7 +47,7 @@ function Usuarios() {
         if (selectedId) {
             const confirmDelete = window.confirm('¿Seguro que deseas eliminar este usuario?');
             if (confirmDelete) {
-                fetch(`http://localhost:8000/usuario/borrar/${selectedId}`, {
+                fetch(`${host}usuario/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useLocation } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion';
 
 function EventoUpdate(){
     const [newEvent, setNewEvent] = useState({
@@ -17,7 +18,7 @@ function EventoUpdate(){
 
     useEffect(() => {
         if (eventoID) {
-            fetch(`http://localhost:8000/evento/${eventoID}`)
+            fetch(`${host}evento/${eventoID}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.length > 0) {
@@ -46,7 +47,7 @@ function EventoUpdate(){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetch(`http://localhost:8000/evento/editar/${eventoID}`, {
+        fetch(`${host}evento/editar/${eventoID}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

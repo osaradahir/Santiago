@@ -3,6 +3,7 @@ import CustomNavbar from '../../components/CustomNavbar';
 import Pregunta from '../../components/Pregunta';
 import '../../css/surveys/Encuestas.css';
 import { Link } from 'react-router-dom';
+import {host} from '../../conexion';
 
 function EncuestaInsert() {
     const [encuesta, setEncuesta] = useState({
@@ -64,7 +65,7 @@ function EncuestaInsert() {
     };
 
     const fetchEncuestaData = async () => {
-        const encuestaResponse = await fetch('http://localhost:8000/encuesta/crear', {
+        const encuestaResponse = await fetch(`${host}encuesta/crear`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -92,7 +93,7 @@ function EncuestaInsert() {
 
         console.log(`Enviando pregunta para la encuesta ID ${idEncuesta}:`, pregunta);
 
-        const preguntaResponse = await fetch('http://localhost:8000/pregunta/crear', {
+        const preguntaResponse = await fetch(`${host}pregunta/crear`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -118,7 +119,7 @@ function EncuestaInsert() {
     };
 
     const fetchOpcionData = async (idPregunta, idEncuesta, opcion) => {
-        const opcionResponse = await fetch('http://localhost:8000/opcion/crear', {
+        const opcionResponse = await fetch(`${host}opcion/crear`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

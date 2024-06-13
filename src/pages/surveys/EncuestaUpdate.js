@@ -5,6 +5,7 @@ import '../../css/surveys/Encuestas.css';
 import { Link } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import {host} from '../../conexion';
 
 function EncuestaUpdate() {
     const [encuesta, setEncuesta] = useState({
@@ -24,7 +25,7 @@ function EncuestaUpdate() {
 
     const obtenerTituloEncuesta = async (idEncuesta) => {
         try {
-            const encuestaResponse = await fetch(`http://localhost:8000/encuesta/${idEncuesta}`);
+            const encuestaResponse = await fetch(`${host}encuesta/${idEncuesta}`);
             if (!encuestaResponse.ok) {
                 throw new Error('Error al obtener datos de la encuesta');
             }
@@ -39,7 +40,7 @@ function EncuestaUpdate() {
 
     const obtenerPreguntasEncuesta = async (idEncuesta) => {
         try {
-            const preguntasResponse = await fetch(`http://localhost:8000/preguntas/encuesta/${idEncuesta}`);
+            const preguntasResponse = await fetch(`${host}preguntas/encuesta/${idEncuesta}`);
             if (!preguntasResponse.ok) {
                 throw new Error('Error al obtener preguntas de la encuesta');
             }
@@ -63,7 +64,7 @@ function EncuestaUpdate() {
     const obtenerOpcionesPreguntas = async (preguntas) => {
         try {
             const opcionesPromises = preguntas.map(pregunta =>
-                fetch(`http://localhost:8000/opciones/preguntas/${pregunta.id}`)
+                fetch(`${host}opciones/preguntas/${pregunta.id}`)
             );
             const opcionesResponses = await Promise.all(opcionesPromises);
             const opcionesData = await Promise.all(opcionesResponses.map(response => response.json()));
@@ -135,7 +136,7 @@ function EncuestaUpdate() {
     };
 
     const fetchEncuestaData = async () => {
-        const encuestaResponse = await fetch('http://localhost:8000/encuesta/editar/${idEncuesta}', {
+        const encuestaResponse = await fetch(`${host}encuesta/editar/${idEncuesta}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -163,7 +164,7 @@ function EncuestaUpdate() {
 
         console.log(`Enviando pregunta para la encuesta ID ${idEncuesta}:`, pregunta);
 
-        const preguntaResponse = await fetch('http://localhost:8000/pregunta/ediar/${idPegunta}', {
+        const preguntaResponse = await fetch(`${host}pregunta/ediar/${idPegunta}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -189,7 +190,7 @@ function EncuestaUpdate() {
     };
 
     const fetchOpcionData = async (idPregunta, idEncuesta, opcion) => {
-        const opcionResponse = await fetch('http://localhost:8000/opcion/editar/${idPregunta}', {
+        const opcionResponse = await fetch(`${host}opcion/editar/${idPregunta}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

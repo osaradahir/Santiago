@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useLocation } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar';
+import {host} from '../../conexion';
 
 function MapaUpdate() {
     const [newUbication, setNewUbication] = useState({
@@ -16,7 +17,7 @@ function MapaUpdate() {
 
     useEffect(() => {
         if (avisoID) {
-            fetch(`http://localhost:8000/ubicacion/${avisoID}`)
+            fetch(`${host}ubicacion/${avisoID}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data && data.length > 0) {
@@ -56,7 +57,7 @@ function MapaUpdate() {
             return;
         }
 
-        fetch(`http://localhost:8000/ubicacion/editar/${avisoID}`, {
+        fetch(`${host}ubicacion/editar/${avisoID}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

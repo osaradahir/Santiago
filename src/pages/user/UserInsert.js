@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../../css/user/Usuarios.css';
 import CustomNavbar from '../../components/CustomNavbar';
+import { host } from '../../conexion';
 
 function UserInsert() {
     const [newUser, setNewUser] = useState({
@@ -24,7 +25,7 @@ function UserInsert() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:8000/usuario/crear', {
+            const response = await fetch(`${host}usuario/crear`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

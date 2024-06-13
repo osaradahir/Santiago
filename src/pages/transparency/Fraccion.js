@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; 
 import '../../css/user/Usuarios.css';
 import CustomNavbar from '../../components/CustomNavbar_02';
+import {host} from '../../conexion';
 
 
 function Fraccion() {
@@ -14,7 +15,7 @@ function Fraccion() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/fraccion');
+                const response = await fetch(`${host}fraccion`);
                 const data = await response.json();
                 // Verificar si los datos recibidos son un array
                 if (Array.isArray(data)) {
@@ -44,7 +45,7 @@ function Fraccion() {
         if (selectedId) {
             const confirmDelete = window.confirm('¿Seguro que deseas eliminar esta fraccion?');
             if (confirmDelete) {
-                fetch(`http://localhost:8000/fraccion/borrar/${selectedId}`, {
+                fetch(`${host}fraccion/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {

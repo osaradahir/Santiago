@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../../css/user/Usuarios.css';
 import CustomNavbar from '../../components/CustomNavbar_02';
+import {host} from '../../conexion'
 
 function Documentos() {
     const [datosDocumentos, setDatosDocumentos] = useState([]);
@@ -13,7 +14,7 @@ function Documentos() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const responseDocumentos = await fetch('http://localhost:8000/documento');
+                const responseDocumentos = await fetch(`${host}documento`);
                 const dataDocumentos = await responseDocumentos.json();
                 
                 // Verificar si los datos recibidos son un array
@@ -23,7 +24,7 @@ function Documentos() {
                     console.error('Los datos recibidos no son un array:', dataDocumentos);
                 }
 
-                const responseFracciones = await fetch('http://localhost:8000/fraccion');
+                const responseFracciones = await fetch(`${host}fraccion`);
                 const dataFracciones = await responseFracciones.json();
                 
                 // Transformar el array de fracciones en un objeto para un acceso más rápido
@@ -54,7 +55,7 @@ function Documentos() {
         if (selectedId) {
             const confirmDelete = window.confirm('¿Seguro que deseas eliminar este documento?');
             if (confirmDelete) {
-                fetch(`http://localhost:8000/documento/borrar/${selectedId}`, {
+                fetch(`${host}documento/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {
@@ -82,7 +83,7 @@ function Documentos() {
             const selectedDocumento = datosDocumentos.find(doc => doc.id_documento === selectedId);
             if (selectedDocumento) {
                 const downloadLink = document.createElement('a');
-                downloadLink.href = `http://localhost:8000/${selectedDocumento.ruta}/${selectedDocumento.documento}`;
+                downloadLink.href = `${host}${selectedDocumento.ruta}/${selectedDocumento.documento}`;
                 downloadLink.download = selectedDocumento.documento;
                 downloadLink.click();
             } else {
@@ -97,7 +98,7 @@ function Documentos() {
         if (selectedId) {
             const selectedDocumento = datosDocumentos.find(doc => doc.id_documento === selectedId);
             if (selectedDocumento) {
-                const enlaceDocumento = `https://docs.google.com/gview?url=https://lsp0pphc-8000.usw3.devtunnels.ms/${selectedDocumento.ruta}/${selectedDocumento.documento}&embedded=true`;
+                const enlaceDocumento = `https://docs.google.com/gview?url=${host}${selectedDocumento.ruta}/${selectedDocumento.documento}&embedded=true`;
                 window.open(enlaceDocumento, "width=800,height=600");
             } else {
                 alert('Documento no encontrado.');

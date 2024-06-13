@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../../css/page/Pagina.css';
 import CustomNavbar from '../../components/CustomNavbar';
+import { host } from '../../conexion';
 
 function PaginaInsert() {
     const fileInputRef = useRef(null);
@@ -30,7 +31,7 @@ function PaginaInsert() {
         formData.append('file', selectedFile);
 
         try {
-            const response = await fetch('http://localhost:8000/logo/subir', {
+            const response = await fetch(`${host}logo/subir`, {
                 method: 'POST',
                 body: formData
             });

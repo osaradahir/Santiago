@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar';
+import { host } from '../../conexion';
 
 function CarruselInsert() {
     const fileInputRef = useRef(null);
@@ -42,7 +43,7 @@ function CarruselInsert() {
         formData.append('estado', estado);
 
         try {
-            const response = await fetch('http://localhost:8000/aviso/crear', {
+            const response = await fetch(`${host}aviso/crear`, {
                 method: 'POST',
                 body: formData
             });

@@ -3,6 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/user/Usuarios.css';
 import CustomNavbar from '../../components/CustomNavbar_03';
+import {host} from '../../conexion';
 
 function Archivos() {
     const [datosDocumentos, setDatosDocumentos] = useState([]);
@@ -27,7 +28,7 @@ function Archivos() {
             if (storedFraccionID) {
                 try {
                     // Obtener documentos
-                    const responseDocumentos = await fetch(`http://localhost:8000/documento/fraccion/${storedFraccionID}`);
+                    const responseDocumentos = await fetch(`${host}documento/fraccion/${storedFraccionID}`);
                     if (!responseDocumentos.ok) {
                         throw new Error('Error en la respuesta de la API');
                     }
@@ -37,7 +38,7 @@ function Archivos() {
                     }
     
                     // Obtener fracciones
-                    const responseFracciones = await fetch('http://localhost:8000/fraccion');
+                    const responseFracciones = await fetch(`${host}fraccion`);
                     if (!responseFracciones.ok) {
                         throw new Error('Error en la respuesta de la API');
                     }
@@ -72,7 +73,7 @@ function Archivos() {
         if (selectedId) {
             const confirmDelete = window.confirm('¿Seguro que deseas eliminar este documento?');
             if (confirmDelete) {
-                fetch(`http://localhost:8000/documento/borrar/${selectedId}`, {
+                fetch(`${host}documento/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {
@@ -100,7 +101,7 @@ function Archivos() {
             const selectedDocumento = datosDocumentos.find(doc => doc.id_documento === selectedId);
             if (selectedDocumento) {
                 const downloadLink = document.createElement('a');
-                downloadLink.href = `http://localhost:8000/${selectedDocumento.ruta}/${selectedDocumento.documento}`;
+                downloadLink.href = `${host}${selectedDocumento.ruta}/${selectedDocumento.documento}`;
                 downloadLink.download = selectedDocumento.documento;
                 downloadLink.click();
             } else {
@@ -115,7 +116,7 @@ function Archivos() {
         if (selectedId) {
             const selectedDocumento = datosDocumentos.find(doc => doc.id_documento === selectedId);
             if (selectedDocumento) {
-                const enlaceDocumento = `https://docs.google.com/gview?url=https://lsp0pphc-8000.usw3.devtunnels.ms/${selectedDocumento.ruta}/${selectedDocumento.documento}&embedded=true`;
+                const enlaceDocumento = `https://docs.google.com/gview?url=${host}${selectedDocumento.ruta}/${selectedDocumento.documento}&embedded=true`;
                 window.open(enlaceDocumento, "width=800,height=600");
             } else {
                 alert('Documento no encontrado.');
