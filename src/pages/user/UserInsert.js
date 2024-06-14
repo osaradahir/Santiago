@@ -62,18 +62,26 @@ function UserInsert() {
 
             <form onSubmit={handleSubmit} style={{marginTop: "10px"}}>
                 <div id="form-container-input" className="d-flex flex-column align-items-center">
-                    {/* Otros campos de entrada */}
+                    {/* Campo de selección para el área */}
                     <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <input
-                            type="text"
+                        <select
                             id="area"
                             name="area"
                             className="fs-2 border-bottom-only no-rounded"
-                            placeholder="Área"
                             value={newUser.area}
                             onChange={handleInputChange}
                             required
-                        />
+                        >
+                            <option value="" disabled>Seleccione un área</option>
+                            <option value="Transparencia">Transparencia</option>
+                            <option value="Comunicación Social">Comunicación Social</option>
+                            <option value="Obras Públicas">Obras Públicas</option>
+                            <option value="Tesorería">Tesorería</option>
+                            <option value="Secretaría Municipal">Secretaría Municipal</option>
+                            <option value="Oficial Mayor">Oficial Mayor</option>
+                            <option value="Contraloría">Contraloría</option>
+                            <option value="Administracion">Administración</option>
+                        </select>
                     </div>
                     <div className="form-group d-flex py-2 w-100 justify-content-center">
                         <input

@@ -10,6 +10,8 @@ import PaginaInsert from './pages/page/PaginaInsert';
 import Carrusel from './pages/page/Carrusel';
 import CarruselInsert from './pages/page/CarruselInsert';
 import CarrucelUpdate from './pages/page/CarruselUpdate';
+import Colores from './pages/page/Colores';
+import ColorUpdate from './pages/page/ColorUpdate'
 import Mapa from './pages/page/Mapa';
 import MapaInsert from './pages/page/MapaInsert';
 import MapaUpdate from './pages/page/MapaUpdate';
@@ -56,6 +58,8 @@ function App() {
           <Route path="/pagina/carrusel" element={<PrivateRoute element={<Carrusel />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/carrusel/insertar" element={<PrivateRoute element={<CarruselInsert />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/carrusel/actualizar" element={<PrivateRoute element={<CarrucelUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/color" element={<PrivateRoute element={<Colores />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/color/actualizar" element={<PrivateRoute element={<ColorUpdate />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/mapa" element={<PrivateRoute element={<Mapa />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/mapa/insertar" element={<PrivateRoute element={<MapaInsert />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/mapa/actualizar" element={<PrivateRoute element={<MapaUpdate />} allowedRoles={['administrador']} />} />

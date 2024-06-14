@@ -38,7 +38,7 @@ function Mapa() {
         if (selectedId) {
             const confirmDelete = window.confirm('¿Seguro que deseas eliminar esta ubicacion?');
             if (confirmDelete) {
-                fetch(`${host}/ubicacion/borrar/${selectedId}`, {
+                fetch(`${host}ubicacion/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {

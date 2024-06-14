@@ -16,7 +16,7 @@ function CarruselUpdate() {
 
     useEffect(() => {
         if (avisoID) {
-            fetch(`${host}/aviso/${avisoID}`)
+            fetch(`${host}aviso/${avisoID}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Datos del aviso:', data);
@@ -118,7 +118,7 @@ function CarruselUpdate() {
                             id="URL"
                             name="URL"
                             placeholder="URL"
-                            value={url ? url : "URL"}
+                            value={url }
                             onChange={handleInputChange}
                             required
                         />

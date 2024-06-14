@@ -17,7 +17,7 @@ function NoticiaUpdate() {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const noticiaID = searchParams.get('id_noticia');
-    
+
     useEffect(() => {
         if (noticiaID) {
             fetch(`${host}noticia/${noticiaID}`)

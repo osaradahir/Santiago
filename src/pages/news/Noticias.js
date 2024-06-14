@@ -21,6 +21,7 @@ function Noticia() {
                 // Verificar si los datos recibidos son un array
                 if (Array.isArray(data)) {
                     setDatosNoticia(data);
+                    console.log('Datos recibidos de la API:', data); 
                 } else {
                     console.error('Los datos recibidos no son un array:', data);
                 }
@@ -32,9 +33,10 @@ function Noticia() {
         fetchData();
     }, []);
     
-    const handleRowClick = (id_titulo) => {
-        setSelectedId(id_titulo);
+    const handleRowClick = (id_noticia) => {
+        setSelectedId(id_noticia === selectedId ? null : id_noticia);
     };
+    
     
     const handleDelete = () => {
         if (selectedId) {
@@ -53,7 +55,7 @@ function Noticia() {
                 })
                 .then(data => {
                     console.log('Noticia eliminada:', data);
-                    const updatedNoticia = datosNoticia.filter(noticia => noticia.id_titulo !== selectedId);
+                    const updatedNoticia = datosNoticia.filter(noticia => noticia.id_noticia !== selectedId);
                     setDatosNoticia(updatedNoticia);
                     setSelectedId(null);
                 })
@@ -144,9 +146,9 @@ function Noticia() {
                     <tbody >
                         {filteredData.map((noticia) => (
                             <tr
-                                key={noticia.id_titulo}
-                                onClick={() => handleRowClick(noticia.id_titulo)}
-                                className={selectedId === noticia.id_titulo ? 'selected' : ''}
+                                key={noticia.id_noticia}
+                                onClick={() => handleRowClick(noticia.id_noticia)}
+                                className={selectedId === noticia.id_noticia ? 'selected' : ''}
                                 style={{ cursor: "pointer" }}
                             >
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{noticia.titulo}</td>

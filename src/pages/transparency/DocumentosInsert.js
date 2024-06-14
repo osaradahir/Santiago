@@ -146,15 +146,15 @@ function DocumentosInsert() {
                     
                     <div className="form-group d-flex py-2 w-100 justify-content-center">
                         <select
-                            id="periodo"
-                            name="periodo"
+                            id="año"
+                            name="año"
                             className="fs-2 border-bottom-only no-rounded"
-                            value={newDocumento.periodo}
+                            value={newDocumento.año}
                             onChange={handleInputChange}
                             required
                         >
-                            <option value="">Selecciona un periodo</option>
-                            {periodo.map((item, index) => (
+                            <option value="">Selecciona un año</option>
+                            {año.map((item, index) => (
                                 <option key={index} value={item.año}>
                                     {item.año}
                                 </option>
