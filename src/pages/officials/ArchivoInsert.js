@@ -43,7 +43,7 @@ function DocumentosInsert() {
     useEffect(() => {
         const fetchAño = async () => {
             try {
-                const response = await fetch(`${host}año`);
+                const response = await fetch(`${host}year`);
                 const data = await response.json();
                 setAño(data);
             } catch (error) {
@@ -120,7 +120,7 @@ function DocumentosInsert() {
                 <h1 className="fs-1">Ingresa un nuevo Artículo</h1>
             </div>
 
-            <form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>
+            <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
                 <div id="form-container-input" className="d-flex flex-column align-items-center">
                     
                     <div className="form-group d-flex py-2 w-100 justify-content-center">

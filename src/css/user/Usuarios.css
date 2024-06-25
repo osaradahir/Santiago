@@ -141,3 +141,13 @@ background-color: lightgray;
   h1 {
     color: #04703F;
   }
+
+  .custom-modal .modal-header {
+    background-color: #04703F;
+    color: white;
+  }
+
+  .custom-modal .modal-body {
+      background-color: #FDFBF6;
+      color: #04703F;
+  }

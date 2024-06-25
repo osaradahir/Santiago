@@ -6,14 +6,25 @@ import CustomNavbar from '../../components/CustomNavbar';
 import { host } from '../../conexion';
 
 function UserInsert() {
+    /* The code snippet `const [newUser, setNewUser] = useState({ area: '', nombre: '', contrasena: '',
+    estado: '1', permisos: '1' });` is initializing a state variable named `newUser` using the
+    `useState` hook in a React functional component. */
     const [newUser, setNewUser] = useState({
         area: '',
         nombre: '',
         contrasena: '',
-        estado: '1', // Establecer valor por defecto para estado
-        permisos: '1' // Establecer valor por defecto para permisos (anteriormente rol)
+        estado: '1',
+        permisos: '1'
     });
 
+    /**
+     * The handleInputChange function updates the state of a newUser object with the new value based on
+     * the input field name.
+     * @param e - The parameter `e` in the `handleInputChange` function is an event object that is
+     * passed to the function when an input field's value changes. It contains information about the
+     * event that occurred, such as the target element that triggered the event (in this case, an input
+     * field), the type of
+     */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setNewUser({
@@ -22,6 +33,15 @@ function UserInsert() {
         });
     };
 
+    /**
+     * The handleSubmit function is an asynchronous function that sends a POST request to create a new
+     * user, handles the response, clears the form, and redirects to the users page with an alert
+     * message.
+     * @param e - In the `handleSubmit` function you provided, the parameter `e` is an event object
+     * that represents the event being handled, which in this case is a form submission event. By
+     * calling `e.preventDefault()`, you are preventing the default behavior of the form submission,
+     * allowing you to handle the form data
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -39,7 +59,6 @@ function UserInsert() {
 
             const data = await response.json();
             console.log('Respuesta de la API:', data);
-            // Limpiar el formulario después de enviar los datos
             setNewUser({
                 area: '',
                 nombre: '',
@@ -48,10 +67,17 @@ function UserInsert() {
                 permisos: '1'
             });
             window.location.href = '/usuarios';
+            alert('Usuario creado correctamente');
+
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }
     };
+
+/* The code snippet you provided is a React functional component named `UserInsert`. Within this
+component, the `return` statement is responsible for rendering the JSX (JavaScript XML) elements
+that make up the user interface for creating a new user. Here's a breakdown of what the JSX elements
+are doing: */
 
     return (
         <div className="app">

@@ -58,6 +58,7 @@ function Noticia() {
                     const updatedNoticia = datosNoticia.filter(noticia => noticia.id_noticia !== selectedId);
                     setDatosNoticia(updatedNoticia);
                     setSelectedId(null);
+                    alert('Noticia eliminada correctamente.');
                 })
                 .catch(error => {
                     console.error('Error al eliminar la noticia:', error);
@@ -134,7 +135,7 @@ function Noticia() {
                     </div>
                 </div>
             </div>
-            <div id="tabla-container" className="px-4 py-4">
+            <div id="tabla-container" className="px-4 py-4" style={{ marginTop: "200px" }}>
                 <table className="table table-hover" style={{ borderCollapse: "separate", borderSpacing: "0 8px" }}>
                     <thead>
                         <tr style={{ borderBottom: "2px solid #04703F", backgroundColor:"#81b79e", }}>

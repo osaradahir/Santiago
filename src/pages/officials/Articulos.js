@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/Articulos.css';
 import CustomNavbar from '../../components/CustomNavbar_03';
-import {host} from '../../conexion'
+import { host } from '../../conexion'
 
-function Articulos(){
+function Articulos() {
     const [datosArticulos, setDatosArticulos] = useState([]);
-    const [selectedId, setSelectedId] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,11 +26,6 @@ function Articulos(){
         fetchData();
     }, []);
 
-    const handleSelect = (id) => {
-        setSelectedId(id);
-        // Do something with the selected id, like navigate to a detail page
-    };
-
     const handleSend = (num_articulo) => {
         // Navegar a la página del artículo con el número de artículo en la URL
         window.location.href = `/funcionarios/fracciones?num_articulo=${num_articulo}`;
@@ -45,8 +39,8 @@ function Articulos(){
                     <h1 className="fs-1"><b>Articulos</b></h1>
                 </div>
             </div>
-            <div className="button-container mt-5 px-4 py-4">
-                <div className="d-flex flex-wrap justify-content-center">
+            <div className="button-container px-4 py-4">
+                <div className="d-flex flex-wrap justify-content-center" style={{ marginTop: "200px" }}>
                     {datosArticulos.map(articulo => (
                         <button
                             key={articulo.id}

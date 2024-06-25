@@ -55,34 +55,37 @@ function PaginaInsert() {
     return (
         <div className="app">
             <CustomNavbar />
-            <div className="d-flex align-items-center justify-content-center text-center">
-                <h1 className="fs-1">Ingresa un nuevo Logo</h1>
-            </div>
+            <div style={{ marginTop: "100px" }}>
+                <div className="d-flex align-items-center justify-content-center text-center">
+                    <h1 className="fs-1">Ingresa un nuevo Logo</h1>
+                </div>
 
-            <form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>
-                <div id="form-container-input" className="d-flex flex-column align-items-center">
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <button type="button" className="fs-2 border-bottom-only no-rounded" onClick={handleFileInputClick}>
-                            Seleccionar archivo
-                        </button>
-                        <span className="fs-2 border-bottom-only no-rounded">{fileName}</span> {/* Mostramos el nombre del archivo */}
-                        <input
-                            type="file"
-                            id="logo"
-                            name="logo"
-                            ref={fileInputRef}
-                            style={{ display: 'none' }}
-                            className="fs-2 border-bottom-only no-rounded"
-                            onChange={handleFileChange}
-                            required
-                        />
+                <form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>
+                    <div id="form-container-input" className="d-flex flex-column align-items-center">
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <button type="button" className="fs-2 border-bottom-only no-rounded" onClick={handleFileInputClick}>
+                                Seleccionar archivo
+                            </button>
+                            <span className="fs-2 border-bottom-only no-rounded">{fileName}</span> {/* Mostramos el nombre del archivo */}
+                            <input
+                                type="file"
+                                id="logo"
+                                name="logo"
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                                className="fs-2 border-bottom-only no-rounded"
+                                onChange={handleFileChange}
+                                required
+                            />
+                        </div>
                     </div>
-                </div>
-                <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
-                    <Link to="/pagina/logo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
-                    <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
-                </div>
-            </form>
+                    <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
+                        <Link to="/pagina/logo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
+                        <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
+                    </div>
+                </form>
+            </div>
+            
         </div>
     );
 }

@@ -17,6 +17,9 @@ const CustomNavbar = () => {
                 <Nav.Link as={Link} to="/pagina/carrusel" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Carrucel</Nav.Link>
                 <Nav.Link as={Link} to="/pagina/color" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Colores</Nav.Link>
                 <Nav.Link as={Link} to="/pagina/mapa" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Mapa</Nav.Link>
+                <Nav.Link as={Link} to="/pagina/contactos/funcionarios" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Contacto Funcionarios</Nav.Link>
+                <Nav.Link as={Link} to="/pagina/contactos/institucinal" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Contacto Institucinal</Nav.Link>
+                <Nav.Link as={Link} to="/pagina/expresidentes" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Exprecidentes</Nav.Link>
             </Nav>
             <Nav className="ml-auto" style={{ marginRight: '10px'}}>
                 <NavDropdown 

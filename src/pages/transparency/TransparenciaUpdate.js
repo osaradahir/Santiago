@@ -5,13 +5,23 @@ import CustomNavbar from '../../components/CustomNavbar_03';
 import {host} from '../../conexion';
 
 function TransparenciaUpdate() {
+    /* The code `const [transparencia, setTransparencia] = useState({ num_articulo: '' });` is using
+    the `useState` hook in React to declare a state variable named `transparencia` and a function to
+    update that state variable named `setTransparencia`. */
     const [transparencia, setTransparencia] = useState({
         num_articulo: '',
     });
 
+    /* The code snippet you provided is extracting the query parameter 'id_articulo' from the current 
+    URL. Here's a breakdown of what each line is doing: */
+
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const transparenciaID = searchParams.get('id_articulo');
+
+    /* The `useEffect` hook in React is used to perform side effects in function components. In this
+    case, the `useEffect` hook is being used to fetch data from an API endpoint based on the
+    `transparenciaID` value. Here's a breakdown of what the `useEffect` is doing: */
 
     useEffect(() => {
         if (transparenciaID) {
@@ -36,6 +46,14 @@ function TransparenciaUpdate() {
         }
     }, [transparenciaID]);
 
+    /**
+     * The function `handleInputChange` updates the `transparencia` state object with the new value
+     * based on the input field name.
+     * @param event - The `event` parameter in the `handleInputChange` function is an object that
+     * represents the event that occurred (e.g., a change event) on the input field. It contains
+     * information about the event, such as the target element (in this case, the input field that
+     * triggered the event) and
+     */
     const handleInputChange = (event) => {
         setTransparencia({
             ...transparencia,
@@ -43,6 +61,15 @@ function TransparenciaUpdate() {
         });
     };
 
+    /**
+     * The handleSubmit function sends a PUT request to update an article with the provided data and
+     * handles the response accordingly.
+     * @param event - The `event` parameter in the `handleSubmit` function is an event object that
+     * represents the event that was triggered, in this case, it is used to prevent the default
+     * behavior of a form submission using `event.preventDefault()`. This is commonly used in form
+     * submission handling to prevent the default form submission behavior
+     */
+    
     const handleSubmit = (event) => {
         event.preventDefault();
         fetch(`${host}articulo/editar/${transparenciaID}`, {

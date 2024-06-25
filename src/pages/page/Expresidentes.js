@@ -1,84 +1,84 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom'; 
-import '../../css/page/Pagina.css';
+import { Link } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar_01';
-import {host} from '../../conexion';
+import { host } from '../../conexion';
 
-function Mapa() {
-    const [datosMapa, setDatosMapa] = useState([]);
+function Expresidentes() {
+    const [datosExPresidentes, setDatosExPresidentes] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`${host}ubicacion`);
+                const response = await fetch(`${host}expresidente`);
                 const data = await response.json();
-                // Verificar si los datos recibidos son un array
-                if (Array.isArray(data)) {
-                    setDatosMapa(data);
-                } else {
-                    console.error('Los datos recibidos no son un array:', data);
-                }
+                setDatosExPresidentes(data);
+                console.log(data);
             } catch (error) {
                 console.error('Error al obtener los datos:', error);
             }
         };
-    
+
         fetchData();
     }, []);
-    
-    
-    const handleRowClick = (id_ubicacion) => {
-        setSelectedId(id_ubicacion);
+
+    const handleRowClick = (id_expresidente) => {
+        if (selectedId === id_expresidente) {
+            return;
+        } else {
+            setSelectedId(id_expresidente);
+            console.log("ID del expresidente seleccionado:", id_expresidente);
+        }
     };
-    
+
     const handleDelete = () => {
         if (selectedId) {
-            const confirmDelete = window.confirm('¿Seguro que deseas eliminar esta ubicacion?');
+            const confirmDelete = window.confirm('¿Seguro que deseas eliminar este expresidente?');
             if (confirmDelete) {
-                fetch(`${host}ubicacion/borrar/${selectedId}`, {
+                fetch(`${host}expresidente/borrar/${selectedId}`, {
                     method: 'DELETE'
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Error al eliminar la ubicacion');
+                        throw new Error('Error al eliminar el expresidente');
                     }
                     return response.json();
                 })
-                .then(() => {
-                    const updatedMapa = datosMapa.filter(mapa => mapa.id_ubicacion !== selectedId);
-                    setDatosMapa(updatedMapa);
+                .then(data => {
+                    const updatedExPresidentes = datosExPresidentes.filter(expresidente => expresidente.id_expresidente !== selectedId);
+                    setDatosExPresidentes(updatedExPresidentes);
                     setSelectedId(null);
-                    alert('Ubicacion eliminada correctamente.');
+                    alert('Ex presidente eliminado correctamente.');
                 })
                 .catch(error => {
-                    console.error('Error al eliminar la ubicacion:', error);
+                    console.error('Error al eliminar el expresidente:', error);
                 });
             }
         } else {
-            alert('Por favor, selecciona una ubicacion para eliminar.');
+            alert('Por favor, selecciona un expresidente para eliminar.');
         }
+
     };
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
-    
-    const filteredData = searchTerm ? 
-        datosMapa.filter(mapa => 
-            mapa.lugar.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    ) : datosMapa;
 
-
+    const filteredData = searchTerm
+        ? datosExPresidentes.filter(expresidente =>
+            expresidente.nombre_exprecidente?.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
+            expresidente.periodo?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        )
+        : datosExPresidentes;
 
     return (
         <div className="app">
             <CustomNavbar />
             <div className="acontainer">
                 <div className="container d-flex justify-content-between align-items-center">
-                    <h1 className="fs-1"><b>Mapa</b></h1>
+                    <h1 className="fs-1"><b>Ex Presidentes</b></h1>
                     <div className="d-flex align-items-center">
                         <div className="input-group rounded-pill border border-1 me-2 custom-border">
                             <input
@@ -91,13 +91,13 @@ function Mapa() {
                                 onChange={handleSearch}
                             />
                         </div>
-                        <Link to="/pagina/mapa/insertar" className="link-dark text-decoration-none px-2">
+                        <Link to="/pagina/expresidentes/insertar" className="link-dark text-decoration-none px-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" fill="#04703F" className="bi bi-plus-circle" viewBox="0 0 16 16">
                                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
                             </svg>
                         </Link>
-                        <Link to={selectedId ? `/pagina/mapa/actualizar?id_aviso=${selectedId}` : '#'} className="link-dark text-decoration-none px-2">
+                        <Link to={selectedId ? `/pagina/expresidentes/actualizar?id_expresidente=${selectedId}` : '#'} className="link-dark text-decoration-none px-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" fill="#04703F" className="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293z" />
                                 <path d="M13.752 4.396l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -114,34 +114,36 @@ function Mapa() {
                     </div>
                 </div>
             </div>
+
             <div id="tabla-container" className="px-4 py-4" style={{ marginTop: "200px" }}>
-                <table className="table table-hover" style={{ backgroundColor: "transparent", borderCollapse: "separate", borderSpacing: "0 8px" }}>
+                <table className="table table-hover" style={{ borderCollapse: "separate", borderSpacing: "0 8px" }}>
                     <thead>
                         <tr style={{ borderBottom: "2px solid #04703F" }}>
-                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Lugar</th>
-                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Latitud</th>
-                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Longitud</th>
+                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Nombre Ex Presidente</th>
+                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Periodo</th>
+                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Foto</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredData.map((mapa) => (
+                        {filteredData.map((expresidente) => (
                             <tr
-                                key={mapa.id_ubicacion}
-                                onClick={() => handleRowClick(mapa.id_ubicacion)}
-                                className={selectedId === mapa.id_ubicacion ? 'selected' : ''}
-                                style={{ cursor: "pointer" }}
+                                key={expresidente.id_expresidente}
+                                onClick={() => handleRowClick(expresidente.id_expresidente)}
+                                className={selectedId === expresidente.id_expresidente ? 'selected' : ''}
+                                style={{  cursor: "pointer" }}
                             >
-                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{mapa.lugar}</td>
-                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{mapa.latitud}</td>
-                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{mapa.longitud}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{expresidente.nombre_expresidente}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{expresidente.periodo}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>
+                                    <img src={`${host}${expresidente.ruta}${expresidente.imagen}`} style={{ maxWidth: "100px", maxHeight: "100px", margin: 'auto', display: 'block'}} />
+                                </td>
                             </tr>
                         ))}
-                    </tbody>
+                    </tbody>    
                 </table>
             </div>
-
         </div>
     );
 }
 
-export default Mapa;
+export default Expresidentes;

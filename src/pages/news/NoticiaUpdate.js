@@ -5,6 +5,8 @@ import CustomNavbar from '../../components/CustomNavbar';
 import {host} from '../../conexion';
 
 function NoticiaUpdate() {
+    /* The code snippet you provided is a React functional component called `NoticiaUpdate`. Let's
+    break down the purpose of each part of the code: */
     const [newNoticia, setNewNoticia] = useState({
         titulo: '',
         contenido: '',
@@ -18,24 +20,29 @@ function NoticiaUpdate() {
     const searchParams = new URLSearchParams(location.search);
     const noticiaID = searchParams.get('id_noticia');
 
+    /* The `useEffect` hook in the provided code snippet is responsible for fetching and updating the
+    data of a specific news article based on the `noticiaID` when the component mounts or when
+    `noticiaID` changes. Here's a breakdown of what it does: */
     useEffect(() => {
         if (noticiaID) {
             fetch(`${host}noticia/${noticiaID}`)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Datos de la noticia:', data);
-                    const noticiaData = data[0]; // Tomamos el primer objeto de la lista
+                    const noticiaData = data[0];
                     setNewNoticia({
                         titulo: noticiaData.titulo,
                         contenido: noticiaData.contenido,
                         imagen: noticiaData.imagen
                     });
-                    setFileName(noticiaData.imagen); // Actualizamos el nombre del archivo
+                    setFileName(noticiaData.imagen);
                 })
                 .catch(error => console.error('Error al obtener los datos de la noticia:', error));
         }
     }, [noticiaID]);
 
+   /**
+    * The above functions handle clicking on a file input element and changing the selected file.
+    */
     const handleFileInputClick = () => {
         fileInputRef.current.click();
     };
@@ -45,6 +52,15 @@ function NoticiaUpdate() {
         setSelectedFile(file);
         setFileName(file.name);
     };
+
+    /**
+     * The handleChange function updates the state of a noticia object with a new value based on the
+     * name of the input field being changed.
+     * @param event - The `event` parameter in the `handleChange` function is an object that represents
+     * the event that occurred, such as a change in an input field. It contains information about the
+     * event, including the target element that triggered the event (in this case, an input field), and
+     * any data associated with that
+     */
     
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -54,6 +70,15 @@ function NoticiaUpdate() {
         }));
     };
 
+    /**
+     * The function `handleSubmit` is an asynchronous function that handles form submission by sending
+     * a PUT request to edit a news article with the provided data and file, displaying success or
+     * error messages accordingly.
+     * @param event - The `event` parameter in the `handleSubmit` function is an event object that
+     * represents the event being handled, in this case, a form submission event. By calling
+     * `event.preventDefault()`, you are preventing the default behavior of the form submission, which
+     * allows you to handle the form data submission asynchronously using
+     */
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData();
@@ -83,6 +108,9 @@ function NoticiaUpdate() {
         }
     };
 
+    /* The `return` statement in the `NoticiaUpdate` component is responsible for rendering the JSX
+    (JavaScript XML) elements that make up the user interface of the component. Let's break down
+    what each part of the returned JSX code is doing: */
     return (
         <div className="app">
             <CustomNavbar />

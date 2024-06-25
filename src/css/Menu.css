@@ -13,6 +13,8 @@ body {
     border-radius: 20px;
     background-color: #ffffff;
     padding: 20px;
+    margin-top: 90px; /* Ajusta este valor según lo que necesites */
+
 }
 
 .button {

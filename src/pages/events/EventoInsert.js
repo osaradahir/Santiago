@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../../css/events/Eventos.css';
@@ -13,6 +13,10 @@ function EventoInsert() {
         fecha: '',
         hora: ''
     });
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [fileName, setFileName] = useState("");
+    const fileInputRef = useRef(null);
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -22,21 +26,35 @@ function EventoInsert() {
         });
     };
 
+    const handleFileInputClick = () => {
+        fileInputRef.current.click();
+    };
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setSelectedFile(file);
+        setFileName(file.name);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const formData = new FormData();
+            formData.append('titulo', newEvent.titulo);
+            formData.append('descripcion', newEvent.descripcion);
+            formData.append('fecha', newEvent.fecha);
+            formData.append('hora', newEvent.hora);
+            formData.append('file', selectedFile);
+    
             const response = await fetch(`${host}evento/crear`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(newEvent)
+                body: formData
             });
-
+    
             if (!response.ok) {
                 throw new Error('Error en la solicitud');
             }
-
+    
             const data = await response.json();
             console.log('Respuesta de la API:', data);
             // Limpiar el formulario después de enviar los datos
@@ -51,6 +69,7 @@ function EventoInsert() {
             console.error('Error al enviar los datos:', error);
         }
     };
+    
 
     return (
         <div className="app">
@@ -109,6 +128,23 @@ function EventoInsert() {
 
                         />
                     </div>
+                    <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <button type="button" className="fs-2 border-bottom-only no-rounded" onClick={handleFileInputClick} style={{ width: "100%" }}>
+                                Seleccionar una foto
+                            </button>
+                            <span className="fs-2 border-bottom-only no-rounded">{fileName.length > 15 ? `${fileName.substring(0, 15)}...` : fileName}</span>
+                            <input
+                                type="file"
+                                id="file"
+                                name="file"
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                                className="fs-2 border-bottom-only no-rounded"
+                                onChange={handleFileChange}
+                                accept=".png, .jpg, .jpeg"
+                                required
+                            />
+                        </div>
                 </div>
                 <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
                     <Link to="/eventos" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>

@@ -2,5 +2,6 @@
     "docwriter.style": "Auto-detect",
     "docwriter.progress.trackClasses": true,
     "docwriter.progress.trackTypes": true,
-    "docwriter.language": "Spanish"
+    "docwriter.language": "English",
+    "docwriter.progress.trackMethods": false
 }

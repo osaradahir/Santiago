@@ -3,20 +3,22 @@ import CustomNavbar from '../../components/CustomNavbar';
 import Pregunta from '../../components/Pregunta';
 import '../../css/surveys/Encuestas.css';
 import { Link } from 'react-router-dom';
-import {host} from '../../conexion';
+import { host } from '../../conexion';
 
 function EncuestaInsert() {
     const [encuesta, setEncuesta] = useState({
         titulo: '',
-        preguntas: [{ texto: '', tipo: 'texto', opciones: [] }]
+        preguntas: [{ texto: '', tipo: 'text', opciones: [] }]
     });
 
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
         const updatedPreguntas = [...encuesta.preguntas];
         updatedPreguntas[index][name] = value;
-        if (name === 'tipo' && value === 'radio') {
+        if (name === 'tipo' && (value === 'radio' || value === 'checkbox')) {
             updatedPreguntas[index].opciones = [''];
+        } else if (name === 'tipo' && value === 'text') {
+            updatedPreguntas[index].opciones = [];
         }
         setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
     };
@@ -25,7 +27,7 @@ function EncuestaInsert() {
         if (encuesta.preguntas.length < 15) {
             setEncuesta({
                 ...encuesta,
-                preguntas: [...encuesta.preguntas, { texto: '', tipo: 'texto', opciones: [] }]
+                preguntas: [...encuesta.preguntas, { texto: '', tipo: 'text', opciones: [] }]
             });
         } else {
             alert("No se pueden agregar más de 15 preguntas.");
@@ -42,23 +44,28 @@ function EncuestaInsert() {
         try {
             // Crear la encuesta y obtener el ID
             const encuestaData = await fetchEncuestaData();
-            console.log('ID de la encuesta creada:', encuestaData.id_encuesta);
+            if (!encuestaData || !encuestaData.id) {
+                throw new Error('No se recibió el ID de la encuesta correctamente.');
+            }
+            console.log('ID de la encuesta creada:', encuestaData.id);
 
             // Crear las preguntas relacionadas con la encuesta
             for (const pregunta of encuesta.preguntas) {
-                const preguntaData = await fetchPreguntaData(encuestaData.id_encuesta, pregunta);
+                console.log(`Tipo de pregunta: ${pregunta.tipo}`);
+                const preguntaData = await fetchPreguntaData(encuestaData.id, pregunta);
                 console.log('Pregunta creada:', preguntaData);
 
-                // Si la pregunta es de tipo 'radio', crear las opciones correspondientes
-                if (pregunta.tipo === 'radio') {
+                // Si la pregunta es de tipo 'radio' o 'checkbox', crear las opciones correspondientes
+                if (pregunta.tipo === 'radio' || pregunta.tipo === 'checkbox') {
                     for (const opcion of pregunta.opciones) {
-                        await fetchOpcionData(preguntaData.id_pregunta, encuestaData.id_encuesta, opcion);
+                        await fetchOpcionData(preguntaData.id_pregunta, encuestaData.id, opcion);
                     }
                 }
             }
 
             // Redirigir a la página de encuestas después de guardar
             window.location.href = '/encuestas';
+            alert('Tu encuesta se creó correctamente');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }
@@ -88,6 +95,7 @@ function EncuestaInsert() {
 
     const fetchPreguntaData = async (idEncuesta, pregunta) => {
         if (!idEncuesta || !pregunta.texto || !pregunta.tipo) {
+            console.error('Datos de pregunta inválidos:', idEncuesta, pregunta);
             throw new Error('Datos de pregunta inválidos');
         }
 
@@ -101,8 +109,7 @@ function EncuestaInsert() {
             body: JSON.stringify({
                 id_encuesta: idEncuesta,
                 pregunta: pregunta.texto,
-                pregunta_abierta: pregunta.tipo === 'texto' ? '1' : '0',
-                pregunta_cerrada_multiple: pregunta.tipo === 'radio' ? '1' : '0'
+                tipo: pregunta.tipo
             })
         });
 
@@ -119,6 +126,7 @@ function EncuestaInsert() {
     };
 
     const fetchOpcionData = async (idPregunta, idEncuesta, opcion) => {
+        console.log(`Enviando opción para la pregunta ID ${idPregunta} en la encuesta ID ${idEncuesta}: ${opcion}`);
         const opcionResponse = await fetch(`${host}opcion/crear`, {
             method: 'POST',
             headers: {
@@ -132,6 +140,8 @@ function EncuestaInsert() {
         });
 
         if (!opcionResponse.ok) {
+            const errorData = await opcionResponse.json();
+            console.error('Error al crear la opción:', errorData);
             throw new Error('Error al crear la opción');
         }
 

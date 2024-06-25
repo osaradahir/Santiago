@@ -55,6 +55,7 @@ function Encuestas() {
                     setDatosEncuestas(updatedUsuarios);
                     // Limpiar la selección
                     setSelectedId(null);
+                    alert('Encuesta eliminada correctamente');
                 })
                 .catch(error => {
                     console.error('Error al eliminar la encuesta:', error);
@@ -115,7 +116,7 @@ function Encuestas() {
                     </div>
                 </div>
             </div>
-            <div id="tabla-container" className="px-4 py-4">
+            <div id="tabla-container" className="px-4 py-4" style={{ marginTop: "200px" }}>
                 <table className="table table-hover" style={{ borderCollapse: "separate", borderSpacing: "0 8px" }}>
                     <thead>
                         <tr style={{ borderBottom: "2px solid #04703F" }}>

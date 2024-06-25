@@ -47,13 +47,13 @@ function MapaInsert() {
 
             const data = await response.json();
             console.log('Respuesta de la API:', data);
-            // Limpiar el formulario después de enviar los datos
             setNewUbication({
                 lugar: '',
                 latitud: '',
                 longitud: ''
             });
             window.location.href = '/pagina/mapa';
+            alert('Ubicacion creada Correctamente.');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }
@@ -62,54 +62,57 @@ function MapaInsert() {
     return (
         <div className="app">
             <CustomNavbar />
-            <div className="d-flex align-items-center justify-content-center text-center">
-                <h1 className="fs-1">Ingresa una nueva Ubicacion</h1>
-            </div>
+            <div style={{ marginTop: "100px" }}>
+                <div className="d-flex align-items-center justify-content-center text-center">
+                    <h1 className="fs-1">Ingresa una nueva Ubicacion</h1>
+                </div>
 
-            <form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>
-                <div id="form-container-input" className="d-flex flex-column align-items-center">
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <input
-                            type="text"
-                            id="lugar"
-                            name="lugar"
-                            className="fs-2 border-bottom-only no-rounded"
-                            placeholder="Lugar"
-                            value={newUbication.lugar}
-                            onChange={handleInputChange}
-                            required
-                        />
+                <form onSubmit={handleSubmit} style={{ marginTop: "10px" }}>
+                    <div id="form-container-input" className="d-flex flex-column align-items-center">
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <input
+                                type="text"
+                                id="lugar"
+                                name="lugar"
+                                className="fs-2 border-bottom-only no-rounded"
+                                placeholder="Lugar"
+                                value={newUbication.lugar}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <input
+                                type="text"
+                                id="latitud"
+                                name="latitud"
+                                className="fs-2 border-bottom-only no-rounded"
+                                placeholder="Latitud"
+                                value={newUbication.latitud}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <input
+                                type="text"
+                                id="longitud"
+                                name="longitud"
+                                className="fs-2 border-bottom-only no-rounded"
+                                placeholder="Longitud"
+                                value={newUbication.longitud}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
                     </div>
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <input
-                            type="text"
-                            id="latitud"
-                            name="latitud"
-                            className="fs-2 border-bottom-only no-rounded"
-                            placeholder="Latitud"
-                            value={newUbication.latitud}
-                            onChange={handleInputChange}
-                            required
-                        />
+                    <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
+                        <Link to="/pagina/mapa" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
+                        <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
                     </div>
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <input
-                            type="text"
-                            id="longitud"
-                            name="longitud"
-                            className="fs-2 border-bottom-only no-rounded"
-                            placeholder="Longitud"
-                            value={newUbication.longitud}
-                            onChange={handleInputChange}
-                            required
-                        />
-                    </div>
-                </div>
-                <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
-                    <Link to="/pagina/mapa" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
-                    <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
-                </div>
-            </form>
+                </form>
+            </div>
+            
         </div>
     );
 }

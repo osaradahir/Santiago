@@ -9,40 +9,58 @@ function Login() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+    
+  /**
+  The function `handleSubmit` is an asynchronous function that handles form submission by sending a
+  POST request to a login endpoint, processing the response data, and redirecting the user based on
+  their role.
+  @param event - The `event` parameter in the `handleSubmit` function is an event object that
+  represents the event being handled, which in this case is typically a form submission event. By
+  calling `event.preventDefault()`, you are preventing the default behavior of the form submission,
+  allowing you to handle the form data submission asynchronously
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch(`${host}login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ nombre: username, contrasena: password }),
-      });
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('role', data.rol);
-        localStorage.setItem('area', data.area)
+      try {
+          const response = await fetch(`${host}login`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ nombre: username, contrasena: password }),
+          });
 
-        if (data.rol === 'administrador') {
-          navigate('/menu');
-        } else if (data.rol === 'director transparencia') {
-          navigate('/transparencia/articulo');
-        } else {
-          navigate('/funcionarios/articulo');
-          
-        }
-      } else {
-        const data = await response.json();
-        setError(data.detail);
+          if (response.ok) {
+              const data = await response.json();
+              localStorage.setItem('token', data.token);
+              localStorage.setItem('role', data.rol);
+              localStorage.setItem('area', data.area);
+
+              switch (data.rol) {
+                  case 'administrador':
+                      navigate('/menu');
+                      break;
+                  case 'director transparencia':
+                      navigate('/transparencia/articulo');
+                      break;
+                  default:
+                      navigate('/funcionarios/articulo');
+                      break;
+              }
+          } else {
+              const data = await response.json();
+              setError(data.detail || 'Error desconocido');
+          }
+      } catch (error) {
+          console.error('Error al iniciar sesión:', error);
+          setError('Error al iniciar sesión. Por favor, intente nuevamente.');
       }
-    } catch (error) {
-      console.error('Error al iniciar sesión:', error);
-      setError('Error al iniciar sesión');
-    }
   };
+
+/* The code snippet you provided is a React functional component named `Login`. Within this component,
+the `return` statement is responsible for rendering the JSX (JavaScript XML) elements that make up
+the login form interface. Here's a breakdown of what each part of the `return` statement is doing: */
 
   return (
     <div className="container">

@@ -33,7 +33,7 @@ function DocumentosInsert() {
     useEffect(() => {
         const fetchAño = async () => {
             try {
-                const response = await fetch(`${host}año`);
+                const response = await fetch(`${host}year`);
                 const data = await response.json();
                 setAño(data);
             } catch (error) {

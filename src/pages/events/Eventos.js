@@ -126,7 +126,7 @@ function Evento() {
                     </div>
                 </div>
             </div>
-            <div id="tabla-container" className="px-4 py-4">
+            <div id="tabla-container" className="px-4 py-4" style={{ marginTop: "200px" }}>
                 <table className="table table-hover" style={{ backgroundColor: "transparent", borderCollapse: "separate", borderSpacing: "0 8px" }}>
                     <thead>
                         <tr style={{ borderBottom: "2px solid #04703F" }}>
@@ -134,6 +134,8 @@ function Evento() {
                             <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Descripcion</th>
                             <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Fecha</th>
                             <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Hora</th>
+                            <th scope="col" className="fs-3" style={{ backgroundColor: "#FDFBF6", borderBottom: "none", color: "#04703F" }}>Imagen</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -148,6 +150,9 @@ function Evento() {
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{evento.descripcion}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{convertirFecha(evento.fecha)}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{convertirSegundosAHora(evento.hora)}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>
+                                    <img src={`${host}${evento.ruta}${evento.imagen}`} style={{ maxWidth: "100px", maxHeight: "100px", margin: 'auto', display: 'block'}} />
+                                </td>
                             </tr>
                         ))}
                     </tbody>

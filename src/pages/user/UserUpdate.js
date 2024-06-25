@@ -6,6 +6,8 @@ import '../../css/user/Usuarios.css';
 import {host} from '../../conexion';
 
 function UserUpdate() {
+    /* The code snippet you provided is a React functional component named `UserUpdate`. Let's break
+    down the code block: */
     const [newUser, setNewUser] = useState({
         area: '',
         nombre: '',
@@ -18,17 +20,20 @@ function UserUpdate() {
     const searchParams = new URLSearchParams(location.search);
     const userID = searchParams.get('id_usuario');
 
+/* The `useEffect` hook in the provided code snippet is responsible for fetching and updating the user
+data based on the `userID` parameter. Here's a breakdown of what it does: */
+
     useEffect(() => {
         if (userID) {
             fetch(`${host}usuario/${userID}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Datos del usuario:', data);
-                    const userData = data[0]; // Tomamos el primer objeto de la lista
+                    const userData = data[0];
                     setNewUser({
                         area: userData.area,
                         nombre: userData.nombre,
-                        contrasena: '', // No se proporciona desde la API
+                        contrasena: '',
                         estado: userData.estado,
                         permisos: userData.permisos
                     });
@@ -38,7 +43,16 @@ function UserUpdate() {
     }, [userID]);
     
 
-    console.log('Nuevo usuario:', newUser); // Agregamos un log aquí para verificar el estado del nuevo usuario
+    console.log('Nuevo usuario:', newUser);
+
+    /**
+    The function `handleInputChange` is used to update the `newUser` object with the new value based
+    on the input field name.
+    @param e - The parameter `e` in the `handleInputChange` function is an event object that is
+    passed to the function when an input field's value changes. It contains information about the
+    event that occurred, such as the target element that triggered the event (in this case, an input
+    field), the type of
+     */
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -48,11 +62,20 @@ function UserUpdate() {
         });
     };
 
+   /**
+   The handleSubmit function is an asynchronous function that sends a PUT request to update user
+   data, handles the response, and redirects to the '/usuarios' page upon success or logs an error
+   if there is a problem.
+   @param e - The `e` parameter in the `handleSubmit` function is an event object that represents
+   the event triggered by the form submission. In this case, it is used to prevent the default form
+   submission behavior using `e.preventDefault()`. This prevents the page from reloading when the
+   form is submitted, allowing the asynchronous
+    */
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await fetch(`${host}usuario/editar/${userID}`, {
-                method: 'PUT', // Cambiar a PUT en lugar de POST
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -73,12 +96,21 @@ function UserUpdate() {
                 permisos: '1'
             });
             window.location.href = '/usuarios';
+            alert('El usuario se actualizo correctamente.');
+
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }
     };    
 
 
+    /* The above code is a JSX snippet for a form component in a React application. It is rendering a
+    form for editing user information. The form includes input fields for selecting an area,
+    entering a name, setting a password, choosing the user's status (active or inactive), and
+    assigning permissions (administrator, director of transparency, or director of an area). The
+    form also includes buttons for canceling the edit and saving the changes. The form submission is
+    handled by a function called `handleSubmit`, and input changes are handled by the
+    `handleInputChange` function. */
     return (
         <div className="app">
             <CustomNavbar />

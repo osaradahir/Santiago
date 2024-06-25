@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link, useLocation } from 'react-router-dom';
 import CustomNavbar from '../../components/CustomNavbar';
@@ -9,8 +9,12 @@ function EventoUpdate(){
         titulo: '',
         descripcion: '',
         fecha: '',
-        hora: ''
+        hora: '', 
+        imagen:''
     });
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [fileName, setFileName] = useState("");
+    const fileInputRef = useRef(null);
 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -27,8 +31,10 @@ function EventoUpdate(){
                             titulo: eventData.titulo,
                             descripcion: eventData.descripcion,
                             fecha: eventData.fecha,
-                            hora: eventData.hora
-                        });
+                            hora: eventData.hora,
+                            imagen: eventData.imagen
+
+                        }); setFileName(eventData.imagen);
                     } else {
                         console.error('No se encontraron datos de evento');
                     }
@@ -45,14 +51,30 @@ function EventoUpdate(){
         });
     };
 
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+    }
+
+    const handleFileInputClick = () => {
+        fileInputRef.current.click();
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('titulo', newEvent.titulo);
+        formData.append('descripcion', newEvent.descripcion);
+        formData.append('fecha', newEvent.fecha);
+        formData.append('hora', newEvent.hora);
+        if (selectedFile) {
+            formData.append('file', selectedFile);
+        }
+
         fetch(`${host}evento/editar/${eventoID}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newEvent)
+            body: formData
         })
         .then(response => {
             if (!response.ok) {
@@ -126,6 +148,22 @@ function EventoUpdate(){
 
                         />
                     </div>
+                    <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <button type="button" className="fs-2 border-bottom-only no-rounded" onClick={handleFileInputClick} style={{ width: "100%" }}>
+                                Seleccionar una foto
+                            </button>
+                            <span className="fs-2 border-bottom-only no-rounded">{fileName.length > 15 ? `${fileName.substring(0, 15)}...` : fileName}</span>
+                            <input
+                                type="file"
+                                id="file"
+                                name="file"
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                                className="fs-2 border-bottom-only no-rounded"
+                                onChange={handleFileChange}
+                                accept=".png, .jpg, .jpeg"
+                            />
+                        </div>
                 </div>
                 <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
                     <Link to="/eventos" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>

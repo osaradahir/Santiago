@@ -50,7 +50,7 @@ table tbody tr td {
   width: 100%;
   box-sizing: border-box;
   margin-top: 20px; /* Sube el contenedor */
-  position: absolute; /* Posición absoluta para que ocupe todo el ancho */
+  position: absolute !important; /* Posición absoluta para que ocupe todo el ancho */
   top: 56px; /* Altura de la barra de navegación */
   left: 0;
 }

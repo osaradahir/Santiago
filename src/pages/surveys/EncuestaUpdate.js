@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CustomNavbar from '../../components/CustomNavbar';
-import Pregunta from '../../components/Pregunta';
+import Pregunta from '../../components/Pregunta1';
 import '../../css/surveys/Encuestas.css';
-import { Link } from 'react-router-dom';
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import {host} from '../../conexion';
+import { Link, useLocation } from 'react-router-dom';
+import { host } from '../../conexion';
 
 function EncuestaUpdate() {
     const [encuesta, setEncuesta] = useState({
+        id_encuesta: '',
         titulo: '',
-        preguntas: [{ id: '', texto: '', tipo: 'texto', opciones: [] }]
+        preguntas: [{ id_pregunta: '', texto: '', tipo: 'text', opciones: [] }]
+    });
+
+    const [encuestaOriginal, setEncuestaOriginal] = useState({
+        id_encuesta: '',
+        titulo: '',
+        preguntas: [{ id_pregunta: '', texto: '', tipo: 'text', opciones: [] }]
     });
 
     const location = useLocation();
@@ -19,221 +24,269 @@ function EncuestaUpdate() {
 
     useEffect(() => {
         if (encuestaID) {
-            obtenerTituloEncuesta(encuestaID);
+            const fetchEncuesta = async () => {
+                try {
+                    const response = await fetch(`${host}buscador_encuesta/${encuestaID}`);
+                    if (!response.ok) {
+                        throw new Error('Error al obtener datos de la encuesta');
+                    }
+                    const data = await response.json();
+
+                    setEncuesta({
+                        id_encuesta: data.id_encuesta,
+                        titulo: data.titulo,
+                        preguntas: data.preguntas.map(pregunta => ({
+                            id_pregunta: pregunta.id_pregunta,
+                            texto: pregunta.pregunta,
+                            tipo: pregunta.tipo,
+                            opciones: pregunta.opciones ? pregunta.opciones.map(opcion => ({
+                                id_opcion: opcion.id_opcion,
+                                opcion: opcion.opcion
+                            })) : []
+                        }))
+                    });
+
+                    setEncuestaOriginal({
+                        id_encuesta: data.id_encuesta,
+                        titulo: data.titulo,
+                        preguntas: data.preguntas.map(pregunta => ({
+                            id_pregunta: pregunta.id_pregunta,
+                            texto: pregunta.pregunta,
+                            tipo: pregunta.tipo,
+                            opciones: pregunta.opciones ? pregunta.opciones.map(opcion => ({
+                                id_opcion: opcion.id_opcion,
+                                opcion: opcion.opcion
+                            })) : []
+                        }))
+                    });
+                } catch (error) {
+                    console.error('Error al obtener encuesta:', error);
+                }
+            };
+
+            fetchEncuesta();
         }
     }, [encuestaID]);
 
-    const obtenerTituloEncuesta = async (idEncuesta) => {
-        try {
-            const encuestaResponse = await fetch(`${host}encuesta/${idEncuesta}`);
-            if (!encuestaResponse.ok) {
-                throw new Error('Error al obtener datos de la encuesta');
-            }
-            const data = await encuestaResponse.json();
-            console.log('Datos de la encuesta:', data);
-            setEncuesta(prevEncuesta => ({ ...prevEncuesta, titulo: data.titulo }));
-            obtenerPreguntasEncuesta(idEncuesta);
-        } catch (error) {
-            console.error('Error al obtener datos de la encuesta:', error);
-        }
-    };
-
-    const obtenerPreguntasEncuesta = async (idEncuesta) => {
-        try {
-            const preguntasResponse = await fetch(`${host}preguntas/encuesta/${idEncuesta}`);
-            if (!preguntasResponse.ok) {
-                throw new Error('Error al obtener preguntas de la encuesta');
-            }
-            const data = await preguntasResponse.json();
-            console.log('Preguntas de la encuesta:', data);
-            setEncuesta(prevEncuesta => ({
-                ...prevEncuesta,
-                preguntas: data.map(pregunta => ({
-                    id: pregunta.id,
-                    texto: pregunta.texto,
-                    tipo: pregunta.tipo,
-                    opciones: []
-                }))
-            }));
-            obtenerOpcionesPreguntas(data);
-        } catch (error) {
-            console.error('Error al obtener preguntas de la encuesta:', error);
-        }
-    };
-
-    const obtenerOpcionesPreguntas = async (preguntas) => {
-        try {
-            const opcionesPromises = preguntas.map(pregunta =>
-                fetch(`${host}opciones/preguntas/${pregunta.id}`)
-            );
-            const opcionesResponses = await Promise.all(opcionesPromises);
-            const opcionesData = await Promise.all(opcionesResponses.map(response => response.json()));
-            console.log('Opciones de las preguntas:', opcionesData);
-            setEncuesta(prevEncuesta => ({
-                ...prevEncuesta,
-                preguntas: prevEncuesta.preguntas.map((pregunta, index) => ({
-                    ...pregunta,
-                    opciones: opcionesData[index].map(opcion => opcion.texto)
-                }))
-            }));
-        } catch (error) {
-            console.error('Error al obtener opciones de las preguntas:', error);
-        }
-    };
-
-
-    const handleInputChange = (e, index) => {
+    const handleInputChange = useCallback((e, index) => {
         const { name, value } = e.target;
-        const updatedPreguntas = [...encuesta.preguntas];
-        updatedPreguntas[index][name] = value;
-        if (name === 'tipo' && value === 'radio') {
-            updatedPreguntas[index].opciones = [''];
-        }
-        setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
-    };
+        setEncuesta(prevEncuesta => {
+            const updatedPreguntas = [...prevEncuesta.preguntas];
+            
+            // Verificar si se está intentando cambiar el tipo de pregunta
+            if (name === 'tipo' && value !== updatedPreguntas[index].tipo) {
+                alert("No se puede cambiar el tipo de pregunta.");
+                return prevEncuesta; // Devolver el estado anterior sin realizar cambios
+            }
+
+            updatedPreguntas[index][name] = value;
+
+            // Manejo de las opciones dependiendo del tipo de pregunta
+            if (name === 'tipo' && (value === 'radio' || value === 'checkbox')) {
+                updatedPreguntas[index].opciones = [{ id_opcion: '', opcion: '' }];
+            } else if (name === 'tipo' && value === 'text') {
+                updatedPreguntas[index].opciones = [];
+            }
+
+            return { ...prevEncuesta, preguntas: updatedPreguntas };
+        });
+    }, []);
 
     const handleAddPregunta = () => {
         if (encuesta.preguntas.length < 15) {
             setEncuesta({
                 ...encuesta,
-                preguntas: [...encuesta.preguntas, { texto: '', tipo: 'texto', opciones: [] }]
+                preguntas: [...encuesta.preguntas, { id_pregunta: '', texto: '', tipo: 'text', opciones: [] }]
             });
         } else {
             alert("No se pueden agregar más de 15 preguntas.");
         }
     };
 
-    const handleRemovePregunta = (index) => {
+    const handleRemovePregunta = async (index) => {
+        const pregunta = encuesta.preguntas[index];
+        if (pregunta.id_pregunta) {
+            try {
+                // Eliminar opciones si existen
+                if (pregunta.tipo === 'radio' || pregunta.tipo === 'checkbox') {
+                    for (const opcion of pregunta.opciones) {
+                        await fetch(`${host}opcion/eliminar/${opcion.id_opcion}`, {
+                            method: 'DELETE'
+                        });
+                    }
+                }
+                // Eliminar pregunta
+                await fetch(`${host}pregunta/borrar/${pregunta.id_pregunta}`, {
+                    method: 'DELETE'
+                });
+            } catch (error) {
+                console.error('Error al eliminar la pregunta:', error);
+                return;
+            }
+        }
         const updatedPreguntas = encuesta.preguntas.filter((_, i) => i !== index);
+        setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
+    };
+
+    const handleOptionChange = (e, preguntaIndex, opcionIndex) => {
+        const updatedPreguntas = [...encuesta.preguntas];
+        updatedPreguntas[preguntaIndex].opciones[opcionIndex].opcion = e.target.value;
+        setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
+    };
+
+    const handleRemoveOption = async (preguntaIndex, opcionIndex) => {
+        const pregunta = encuesta.preguntas[preguntaIndex];
+        const opcion = pregunta.opciones[opcionIndex];
+        if (opcion.id_opcion) {
+            try {
+                await fetch(`${host}opcion/borrar/${opcion.id_opcion}`, {
+                    method: 'DELETE'
+                });
+            } catch (error) {
+                console.error('Error al eliminar la opción:', error);
+                return;
+            }
+        }
+        const updatedPreguntas = [...encuesta.preguntas];
+        updatedPreguntas[preguntaIndex].opciones.splice(opcionIndex, 1);
+        setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
+    };
+
+    const handleAddOption = (preguntaIndex) => {
+        const updatedPreguntas = [...encuesta.preguntas];
+        updatedPreguntas[preguntaIndex].opciones.push({ id_opcion: '', opcion: '' });
         setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            // Crear la encuesta y obtener el ID
-            const encuestaData = await fetchEncuestaData();
-            console.log('ID de la encuesta creada:', encuestaData.id_encuesta);
+            if (encuesta.titulo !== encuestaOriginal.titulo) {
+                const response = await fetch(`${host}encuesta/editar/${encuesta.id_encuesta}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        titulo: encuesta.titulo
+                    })
+                });
 
-            // Crear las preguntas relacionadas con la encuesta
-            for (const pregunta of encuesta.preguntas) {
-                const preguntaData = await fetchPreguntaData(encuestaData.id_encuesta, pregunta);
-                console.log('Pregunta creada:', preguntaData);
-
-                // Si la pregunta es de tipo 'radio', crear las opciones correspondientes
-                if (pregunta.tipo === 'radio') {
-                    for (const opcion of pregunta.opciones) {
-                        await fetchOpcionData(preguntaData.id_pregunta, encuestaData.id_encuesta, opcion);
-                    }
+                if (!response.ok) {
+                    throw new Error('Error al actualizar el título de la encuesta');
                 }
             }
 
-            // Redirigir a la página de encuestas después de guardar
+            for (const pregunta of encuesta.preguntas) {
+                const preguntaOriginal = encuestaOriginal.preguntas.find(p => p.id_pregunta === pregunta.id_pregunta);
+
+                if (preguntaOriginal) {
+                    const cambios = {
+                        texto: pregunta.texto !== preguntaOriginal.texto,
+                        tipo: pregunta.tipo !== preguntaOriginal.tipo,
+                        opciones: JSON.stringify(pregunta.opciones) !== JSON.stringify(preguntaOriginal.opciones)
+                    };
+
+                    if (cambios.texto || cambios.tipo || cambios.opciones) {
+                        const preguntaData = await fetch(`${host}pregunta/editar/${pregunta.id_pregunta}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id_pregunta: pregunta.id_pregunta,
+                                pregunta: pregunta.texto,
+                                tipo: pregunta.tipo,
+                                id_encuesta: encuesta.id_encuesta
+                            })
+                        });
+
+                        if (!preguntaData.ok) {
+                            throw new Error('Error al actualizar la pregunta');
+                        }
+
+                        if (pregunta.tipo === 'radio' || pregunta.tipo === 'checkbox') {
+                            for (const opcion of pregunta.opciones) {
+                                if (opcion.id_opcion) {
+                                    const opcionesData = await fetch(`${host}opcion/editar/${opcion.id_opcion}`, {
+                                        method: 'PUT',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            opcion: opcion.opcion
+                                        })
+                                    });
+
+                                    if (!opcionesData.ok) {
+                                        throw new Error('Error al actualizar la opción de la pregunta');
+                                    }
+                                } else {
+                                    const nuevasOpcionesData = await fetch(`${host}opcion/crear`, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            id_pregunta: pregunta.id_pregunta,
+                                            id_encuesta: encuesta.id_encuesta,
+                                            opcion: opcion.opcion
+                                        })
+                                    });
+
+                                    if (!nuevasOpcionesData.ok) {
+                                        throw new Error('Error al crear las opciones de la pregunta');
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    const nuevaPreguntaResponse = await fetch(`${host}pregunta/crear`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            pregunta: pregunta.texto,
+                            tipo: pregunta.tipo,
+                            id_encuesta: encuesta.id_encuesta
+                        })
+                    });
+
+                    if (!nuevaPreguntaResponse.ok) {
+                        throw new Error('Error al crear la nueva pregunta');
+                    }
+
+                    const nuevaPreguntaData = await nuevaPreguntaResponse.json();
+                    if (pregunta.tipo === 'radio' || pregunta.tipo === 'checkbox') {
+                        for (const opcion of pregunta.opciones) {
+                            const nuevaOpcionResponse = await fetch(`${host}opcion/crear`, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    id_pregunta: nuevaPreguntaData.id_pregunta,
+                                    id_encuesta: encuesta.id_encuesta,
+                                    opcion: opcion.opcion
+                                })
+                            });
+
+                            if (!nuevaOpcionResponse.ok) {
+                                throw new Error('Error al crear la nueva opción');
+                            }
+                        }
+                    }
+                }
+            }
             window.location.href = '/encuestas';
+            alert('Encuesta Actualizada');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }
     };
-
-    const fetchEncuestaData = async () => {
-        const encuestaResponse = await fetch(`${host}encuesta/editar/${idEncuesta}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                titulo: encuesta.titulo
-            })
-        });
-
-        if (!encuestaResponse.ok) {
-            const errorData = await encuestaResponse.json();
-            console.error('Error al crear la encuesta:', errorData);
-            throw new Error('Error al crear la encuesta');
-        }
-
-        const data = await encuestaResponse.json();
-        console.log('Respuesta de creación de encuesta:', data);
-        return data;
-    };
-
-    const fetchPreguntaData = async (idEncuesta, pregunta) => {
-        if (!idEncuesta || !pregunta.texto || !pregunta.tipo) {
-            throw new Error('Datos de pregunta inválidos');
-        }
-
-        console.log(`Enviando pregunta para la encuesta ID ${idEncuesta}:`, pregunta);
-
-        const preguntaResponse = await fetch(`${host}pregunta/ediar/${idPegunta}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id_encuesta: idEncuesta,
-                pregunta: pregunta.texto,
-                pregunta_abierta: pregunta.tipo === 'texto' ? '1' : '0',
-                pregunta_cerrada_multiple: pregunta.tipo === 'radio' ? '1' : '0'
-            })
-        });
-
-        if (!preguntaResponse.ok) {
-            const errorData = await preguntaResponse.json();
-            console.error('Error al crear la pregunta:', errorData);
-            throw new Error('Error al crear la pregunta');
-        }
-
-        const responseData = await preguntaResponse.json();
-        console.log('Respuesta del servidor para crear pregunta:', responseData);
-
-        return responseData;
-    };
-
-    const fetchOpcionData = async (idPregunta, idEncuesta, opcion) => {
-        const opcionResponse = await fetch(`${host}opcion/editar/${idPregunta}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id_pregunta: idPregunta,
-                id_encuesta: idEncuesta,
-                opcion
-            })
-        });
-
-        if (!opcionResponse.ok) {
-            throw new Error('Error al crear la opción');
-        }
-
-        const data = await opcionResponse.json();
-        console.log('Respuesta del servidor para crear opción:', data);
-        return data;
-    };
-
-    const handleOptionChange = (e, preguntaIndex, opcionIndex) => {
-        const updatedPreguntas = [...encuesta.preguntas];
-        updatedPreguntas[preguntaIndex].opciones[opcionIndex] = e.target.value;
-        setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
-    };
-
-    const handleAddOption = (index) => {
-        const updatedPreguntas = [...encuesta.preguntas];
-        if (!Array.isArray(updatedPreguntas[index].opciones)) {
-            updatedPreguntas[index].opciones = [];
-        }
-        updatedPreguntas[index].opciones.push('');
-        setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
-    };
-
-    const handleRemoveOption = (index, optionIndex) => {
-        const updatedPreguntas = [...encuesta.preguntas];
-        if (Array.isArray(updatedPreguntas[index].opciones)) {
-            updatedPreguntas[index].opciones.splice(optionIndex, 1);
-            setEncuesta({ ...encuesta, preguntas: updatedPreguntas });
-        }
-    };
-
+    
     return (
         <div className="app">
             <CustomNavbar />

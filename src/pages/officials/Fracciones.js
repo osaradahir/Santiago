@@ -44,7 +44,7 @@ function Fracciones() {
                 </div>
             </div>
             <div className="button-container mt-5 px-4 py-4">
-                <div className="d-flex flex-wrap justify-content-center">
+                <div className="d-flex flex-wrap justify-content-center" style={{ marginTop: "200px" }}>
                 {datosFracciones.length > 0 ? (
                         datosFracciones.map((fraccion) => (
                             <button

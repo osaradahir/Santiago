@@ -61,6 +61,7 @@ function NoticiaInsert() {
             setSelectedFile(null);
             setFileName("");
             window.location.href = '/noticias';
+            alert('Noticia creada exitosamente');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }

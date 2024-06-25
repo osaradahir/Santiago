@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/LoginForm';
@@ -15,6 +16,14 @@ import ColorUpdate from './pages/page/ColorUpdate'
 import Mapa from './pages/page/Mapa';
 import MapaInsert from './pages/page/MapaInsert';
 import MapaUpdate from './pages/page/MapaUpdate';
+import Funcionarios from './pages/page/Funcionarios'
+import FuncionarioInsert from './pages/page/FuncionarioInsert'
+import FuncionarioUpdate from './pages/page/FuncionarioUpdate'
+import Institucion from './pages/page/Institucion';
+import InstitucionUpdate from './pages/page/InstitucionUpdate';
+import Expresidente from './pages/page/Expresidentes';
+import ExpresidenteInsert from './pages/page/ExpresidenteInsert';
+import ExpresidenteUpdate from './pages/page/ExpresidenteUpdate';
 import Noticias from './pages/news/Noticias';
 import NoticiaInsert from './pages/news/NoticiaInsert';
 import NoticiaUpdate from './pages/news/NoticiaUpdate';
@@ -23,6 +32,8 @@ import EventoInsert from './pages/events/EventoInsert';
 import EventoUpdate from './pages/events/EventoUpdate';
 import Encuestas from './pages/surveys/Encuestas';
 import EncuestaInsert from './pages/surveys/EncuestaInsert';
+import EncuestaUpdate from './pages/surveys/EncuestaUpdate';
+import Buzon from './pages/mailbox/Buzon';
 import Transparencia from './pages/transparency/Transparencia';
 import TransparenciaInsert from './pages/transparency/TransparenciaInsert';
 import TransparenciaUpdate from './pages/transparency/TransparenciaUpdate';
@@ -35,13 +46,25 @@ import Articulos from './pages/officials/Articulos';
 import Fracciones from './pages/officials/Fracciones';
 import Archivos from './pages/officials/Archivos';
 import ArchivoInsert from './pages/officials/ArchivoInsert';
-// Componente PrivateRoute para proteger rutas
+
+/**
+The PrivateRoute component checks if a user is authenticated and has the required role to access a
+route.
+@returns The PrivateRoute component is returning either the `element` passed as a prop if the user
+has a valid token and their role is included in the `allowedRoles` array, or it returns a `<Navigate
+to="/" />` component to redirect the user to the home page if the conditions are not met.
+ */
 const PrivateRoute = ({ element, allowedRoles }) => {
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
 
   return token && allowedRoles.includes(role) ? element : <Navigate to="/" />;
 };
+
+/* The above code is a React component that defines routes for different pages in a web application. It
+uses React Router to handle navigation and rendering of components based on the URL path. Each
+`<Route>` component specifies a path and the corresponding component to render when that path
+matches the current URL. */
 
 function App() {
   return (
@@ -63,6 +86,14 @@ function App() {
           <Route path="/pagina/mapa" element={<PrivateRoute element={<Mapa />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/mapa/insertar" element={<PrivateRoute element={<MapaInsert />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/mapa/actualizar" element={<PrivateRoute element={<MapaUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/contactos/funcionarios" element={<PrivateRoute element={<Funcionarios />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/contactos/funcionarios/insertar" element={<PrivateRoute element={<FuncionarioInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/contactos/funcionarios/actualizar" element={<PrivateRoute element={<FuncionarioUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/contactos/institucinal" element={<PrivateRoute element={<Institucion />} allowedRoles={['administrador']} />} />
+          <Route path='/pagina/contactos/institucinal/actualizar' element={<PrivateRoute element={<InstitucionUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/expresidentes" element={<PrivateRoute element={<Expresidente />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/expresidentes/insertar" element={<PrivateRoute element={<ExpresidenteInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/expresidentes/actualizar" element={<PrivateRoute element={<ExpresidenteUpdate />} allowedRoles={['administrador']} />} />
           <Route path="/noticias" element={<PrivateRoute element={<Noticias />} allowedRoles={['administrador']} />} />
           <Route path="/noticias/insertar" element={<PrivateRoute element={<NoticiaInsert />} allowedRoles={['administrador']} />} />
           <Route path="/noticias/actualizar" element={<PrivateRoute element={<NoticiaUpdate />} allowedRoles={['administrador']} />} />
@@ -71,6 +102,8 @@ function App() {
           <Route path="/eventos/actualizar" element={<PrivateRoute element={<EventoUpdate />} allowedRoles={['administrador']} />} />
           <Route path="/encuestas" element={<PrivateRoute element={<Encuestas />} allowedRoles={['administrador']} />} />
           <Route path="/encuesta/insertar" element={<PrivateRoute element={<EncuestaInsert />} allowedRoles={['administrador']} />} />
+          <Route path='/encuesta/actualizar' element={<PrivateRoute element={<EncuestaUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/buzon" element={<PrivateRoute element={<Buzon />}  allowedRoles={['administrador']} />} />
           <Route path="/transparencia/articulo" element={<PrivateRoute element={<Transparencia />} allowedRoles={['director transparencia', 'administrador']} />} />
           <Route path="/transparencia/articulo/insertar" element={<PrivateRoute element={<TransparenciaInsert />} allowedRoles={['director transparencia', 'administrador']} />} />
           <Route path="/transparencia/articulo/actualizar" element={<PrivateRoute element={<TransparenciaUpdate />} allowedRoles={['director transparencia', 'administrador']} />} />

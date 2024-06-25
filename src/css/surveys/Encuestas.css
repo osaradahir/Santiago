@@ -136,6 +136,17 @@ table tbody tr td {
     color: white;
 }
 
+.agregar {
+    border-color: #04703F;
+    color: #04703F;
+}
+
+.agregar:hover{
+    background-color: #04703F;
+    border: #04703F;
+    color: white;
+}
+
 .boton_01 {
     border-width: 14px;
     margin-top: 24px;
