@@ -64,7 +64,8 @@ the login form interface. Here's a breakdown of what each part of the `return` s
 
   return (
     <div className="container">
-      <h1 className="title">Santiago Tulatepec</h1>
+      <h1 className="title">Santiago Tulan
+      tepec</h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="username" style={{ color: "#04703F", fontSize: "1.5rem" }}>Usuario</label>
         <div className="inputIcon">

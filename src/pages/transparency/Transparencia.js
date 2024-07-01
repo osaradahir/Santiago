@@ -56,6 +56,7 @@ function Transparencia() {
                     const updatedTransparencia = datosTransparencia.filter(transparencia => transparencia.id_articulo !== selectedId);
                     setDatosTransparencia(updatedTransparencia);
                     setSelectedId(null);
+                    alert('Artículo eliminado correctamente');
                 })
                 .catch(error => {
                     console.error('Error al eliminar el artículo:', error);

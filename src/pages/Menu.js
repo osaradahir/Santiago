@@ -27,7 +27,7 @@ function Menu() {
                 </div>
                 <div className="right">
                     <a href="/buzon" className="button">Buzon</a>
-                    <a href="/conac" className="button">CONAC</a>
+                    <a href="/conac/tomo" className="button">CONAC</a>
                 </div>
                 
             </div>

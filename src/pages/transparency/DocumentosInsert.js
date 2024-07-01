@@ -119,7 +119,7 @@ function DocumentosInsert() {
                             onChange={handleInputChange}
                             required
                         >
-                            <option value="">Selecciona un artículo</option>
+                            <option value="">Selecciona una fraccion</option>
                             {fraccion.map((item, index) => (
                                 <option key={index} value={item.id_fraccion}>
                                     {item.fraccion}

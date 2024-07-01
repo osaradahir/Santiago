@@ -34,6 +34,17 @@ import Encuestas from './pages/surveys/Encuestas';
 import EncuestaInsert from './pages/surveys/EncuestaInsert';
 import EncuestaUpdate from './pages/surveys/EncuestaUpdate';
 import Buzon from './pages/mailbox/Buzon';
+import Tomo from './pages/conac/Tomos';
+import TomoInsert from './pages/conac/TomoInsert';
+import TomoUpdate from './pages/conac/TomoUpdate';
+import Seccion from './pages/conac/Seccion';
+import SeccionInsert from './pages/conac/SeccionInsert';
+import SeccionUpdate from './pages/conac/SeccionUpdate';
+import FraccionConac from './pages/conac/Fraccion';
+import FraccionInsertConac from './pages/conac/FraccionInsert';
+import FraccionUpdateConac from './pages/conac/FraccionUpdate';
+import DocumentosConac from './pages/conac/Documento';
+import DocumentosInsertConac from './pages/conac/DocumentoInsert';
 import Transparencia from './pages/transparency/Transparencia';
 import TransparenciaInsert from './pages/transparency/TransparenciaInsert';
 import TransparenciaUpdate from './pages/transparency/TransparenciaUpdate';
@@ -104,6 +115,17 @@ function App() {
           <Route path="/encuesta/insertar" element={<PrivateRoute element={<EncuestaInsert />} allowedRoles={['administrador']} />} />
           <Route path='/encuesta/actualizar' element={<PrivateRoute element={<EncuestaUpdate />} allowedRoles={['administrador']} />} />
           <Route path="/buzon" element={<PrivateRoute element={<Buzon />}  allowedRoles={['administrador']} />} />
+          <Route path="/conac/tomo" element={<PrivateRoute element={<Tomo />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/tomo/insertar" element={<PrivateRoute element={<TomoInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/tomo/actualizar" element={<PrivateRoute element={<TomoUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/seccion" element={<PrivateRoute element={<Seccion />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/seccion/insertar" element={<PrivateRoute element={<SeccionInsert />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/seccion/actualizar" element={<PrivateRoute element={<SeccionUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/fraccion" element={<PrivateRoute element={<FraccionConac />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/fraccion/insertar" element={<PrivateRoute element={<FraccionInsertConac />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/fraccion/actualizar" element={<PrivateRoute element={<FraccionUpdateConac />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/archivo" element={<PrivateRoute element={<DocumentosConac />} allowedRoles={['administrador']} />} />
+          <Route path="/conac/documento/insertar" element={<PrivateRoute element={<DocumentosInsertConac />} allowedRoles={['administrador']} />} />
           <Route path="/transparencia/articulo" element={<PrivateRoute element={<Transparencia />} allowedRoles={['director transparencia', 'administrador']} />} />
           <Route path="/transparencia/articulo/insertar" element={<PrivateRoute element={<TransparenciaInsert />} allowedRoles={['director transparencia', 'administrador']} />} />
           <Route path="/transparencia/articulo/actualizar" element={<PrivateRoute element={<TransparenciaUpdate />} allowedRoles={['director transparencia', 'administrador']} />} />

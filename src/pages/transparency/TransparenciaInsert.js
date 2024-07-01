@@ -39,6 +39,7 @@ function TransparenciaInsert(){
                 num_articulo: ''
             });
             window.location.href = '/transparencia/articulo';
+            alert('Articulo creado correctamente')
 
         } catch (error) {
             console.error('Error al enviar los datos:', error);
