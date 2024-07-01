@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; 
 import '../../css/user/Usuarios.css';
 import CustomNavbar from '../../components/CustomNavbar_04';
+import { CreateIcon, UpdateIcon, DeleteIcon } from '../../components/Icons';
 import { host } from '../../conexion';
-import { CrateIcon, UpdateIcon, DeleteIcon } from '../../components/Icons';
 
 function Tomo() {
     const [datosTransparencia, setDatosTransparencia] = useState([]);
@@ -97,7 +97,7 @@ function Tomo() {
                         </div>
                         {/* Ajusta los enlaces y botones según tu flujo de la aplicación */}
                         <Link to="/conac/tomo/insertar" className="link-dark text-decoration-none px-2">
-                            <CrateIcon />
+                            <CreateIcon />
                         </Link>
                         <Link to={selectedId ? `/conac/tomo/actualizar?id_tomo=${selectedId}` : '#'} className="link-dark text-decoration-none px-2">
                             <UpdateIcon />

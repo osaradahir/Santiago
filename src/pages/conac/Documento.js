@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import '../../css/user/Usuarios.css';
 import CustomNavbar from '../../components/CustomNavbar_04';
+import { CreateIcon, DeleteIcon, Download, See } from '../../components/Icons'; // Asegúrate de que los iconos estén importados correctamente
 import { host } from '../../conexion';
-import { CrateIcon, UpdateIcon, DeleteIcon } from '../../components/Icons';
 
 function DocumentosConac() {
     const [documentos, setDocumentos] = useState([]);
@@ -67,6 +67,36 @@ function DocumentosConac() {
         }
     };
 
+    const handleDownload = () => {
+        if (selectedId) {
+            const selectedDocumento = documentos.find(doc => doc.id_documento === selectedId);
+            if (selectedDocumento) {
+                const downloadLink = document.createElement('a');
+                downloadLink.href = `${host}${selectedDocumento.ruta}`;
+                downloadLink.download = selectedDocumento.archivo;
+                downloadLink.click();
+            } else {
+                alert('Documento no encontrado.');
+            }
+        } else {
+            alert('Por favor, selecciona un documento para descargar.');
+        }
+    }
+
+    const handleSee = () => {
+        if (selectedId) {
+            const selectedDocumento = documentos.find(doc => doc.id_documento === selectedId);
+            if (selectedDocumento) {
+                const enlaceDocumento = `https://docs.google.com/gview?url=${host}${selectedDocumento.ruta}&embedded=true`;
+                window.open(enlaceDocumento, "width=800,height=600");
+            } else {
+                alert('Documento no encontrado.');
+            }
+        } else {
+            alert('Por favor, selecciona un documento para ver.');
+        }
+    }
+
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
@@ -101,13 +131,16 @@ function DocumentosConac() {
                             />
                         </div>
                         <Link to="/conac/documento/insertar" className="link-dark text-decoration-none px-2">
-                            <CrateIcon />
-                        </Link>
-                        <Link to={selectedId ? `/conac/documento/actualizar?id_documento=${selectedId}` : '#'} className="link-dark text-decoration-none px-2">
-                            <UpdateIcon />
+                            <CreateIcon />
                         </Link>
                         <button type="button" className="text-decoration-none px-2" style={{ backgroundColor: "white", border: "none" }} onClick={handleDelete}>
                             <DeleteIcon />
+                        </button>
+                        <button type="button" className="text-decoration-none px-2" style={{ backgroundColor: "white", border: "none" }} onClick={handleDownload}>
+                            <Download />
+                        </button>
+                        <button type="button" className="text-decoration-none px-2" style={{ backgroundColor: "white", border: "none" }} onClick={handleSee}>
+                            <See />
                         </button>
                     </div>
                 </div>

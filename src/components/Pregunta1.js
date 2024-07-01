@@ -1,4 +1,6 @@
 import React from 'react';
+import { Less, Add } from './Icons';
+
 
 const Pregunta = ({
     pregunta,
@@ -37,9 +39,10 @@ const Pregunta = ({
                     <button
                         type="button"
                         onClick={() => handleRemovePregunta(index)}
-                        className="btn btn-outline-danger fs-4 btn-sm rounded-pill"
+                        className="btn fs-4 btn-sm rounded-pill"
+                        style={{ border: 'none', outline: 'none', cursor: 'pointer', background: 'none' }}
                     >
-                        Eliminar
+                        <Less />
                     </button>
                 </div>
             </div>
@@ -58,18 +61,20 @@ const Pregunta = ({
                             <button
                                 type="button"
                                 onClick={() => handleRemoveOption(index, opcionIndex)}
-                                className="btn btn-outline-danger fs-4 btn-sm rounded-pill ml-2"
+                                className="btn fs-4 btn-sm rounded-pill ml-2"
+                                style={{ border: 'none', outline: 'none', cursor: 'pointer', background: 'none' }}
                             >
-                                Eliminar
+                                <Less />
                             </button>
                         </div>
                     ))}
                     <button
                         type="button"
                         onClick={() => handleAddOption(index)}
-                        className="btn btn-outline-dark fs-4 btn-sm rounded-pill agregar"
+                        className="btn fs-4 btn-sm rounded-pill"
+                        style={{ border: 'none', outline: 'none', cursor: 'pointer', background: 'none' }}
                     >
-                        Agregar Opción
+                        <Add />
                     </button>
                 </div>
             )}

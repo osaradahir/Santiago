@@ -1,4 +1,5 @@
 import React from 'react';
+import { Less, Add } from './Icons';
 
 const Pregunta = ({
     pregunta,
@@ -34,7 +35,14 @@ const Pregunta = ({
                     </select>
                 </div>
                 <div>
-                    <button type="button" onClick={() => handleRemovePregunta(index)} className="btn btn-outline-danger fs-4 btn-sm rounded-pill">Eliminar</button>
+                    <button
+                        type="button"
+                        onClick={() => handleRemovePregunta(index)}
+                        className="btn fs-4 btn-sm rounded-pill"
+                        style={{ border: 'none', outline: 'none', cursor: 'pointer', background: 'none' }}
+                    >
+                        <Less />
+                    </button>
                 </div>
             </div>
             {pregunta.tipo === 'radio' || pregunta.tipo === 'checkbox' ? (
@@ -49,10 +57,24 @@ const Pregunta = ({
                                 onChange={(e) => handleOptionChange(e, index, opcionIndex)}
                                 required
                             />
-                            <button type="button" onClick={() => handleRemoveOption(index, opcionIndex)} className="btn btn-outline-danger fs-4 btn-sm rounded-pill ml-2">Eliminar</button>
+                            <button
+                                type="button"
+                                onClick={() => handleRemoveOption(index, opcionIndex)}
+                                className="btn fs-4 btn-sm rounded-pill ml-2"
+                                style={{ border: 'none', outline: 'none', cursor: 'pointer', background: 'none' }}
+                            >
+                                <Less />
+                            </button>
                         </div>
                     ))}
-                    <button type="button" onClick={() => handleAddOption(index)} className="btn btn-outline-dark fs-4 btn-sm rounded-pill agregar">Agregar Opción</button>
+                    <button
+                        type="button"
+                        onClick={() => handleAddOption(index)}
+                        className="btn fs-4 btn-sm rounded-pill"
+                        style={{ border: 'none', outline: 'none', cursor: 'pointer', background: 'none' }}
+                    >
+                        <Add />
+                    </button>
                 </div>
             ) : null}
         </div>
