@@ -106,7 +106,7 @@ function DocumentosInsertConac() {
         formData.append('nombre_fraccion', newDocumento.nombre_fraccion);
         formData.append('trimestre_categoria', newDocumento.trimestre_categoria);
         formData.append('año', newDocumento.año);
-        formData.append('archivo', newDocumento.archivo, newDocumento.archivo.name);
+        formData.append('file', newDocumento.archivo, newDocumento.archivo.name);
 
         try {
             console.log('Datos enviados:', newDocumento); // Verifica los datos antes de enviar
@@ -214,11 +214,13 @@ function DocumentosInsertConac() {
                             onChange={handleInputChange}
                             required
                         >
-                            <option value="">Selecciona un trimestre</option>
+                            <option value="">Selecciona un trimestre o Categoria</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
+                            <option value="Cuenta Pública">Cuenta Pública</option>
+                            <option value="Reglamento">Reglamento</option>
                         </select>
                     </div>
                     <div className="form-group d-flex py-2 w-100 justify-content-center">
@@ -239,32 +241,28 @@ function DocumentosInsertConac() {
                         </select>
                     </div>
                     <div className="form-group d-flex py-2 w-100 justify-content-center">
+                        <button type="button" className="fs-2 border-bottom-only no-rounded" onClick={handleFileInputClick} style={{width:"100%"}}>
+                            Seleccionar archivo
+                        </button>
+                        <span className="fs-2 border-bottom-only no-rounded">
+                            {fileName.length > 15 ? `${fileName.substring(0, 15)}...` : fileName}
+                        </span>
                         <input
                             type="file"
-                            id="archivo"
-                            name="archivo"
-                            className="fs-2 border-bottom-only no-rounded"
-                            onChange={handleFileChange}
+                            id="file"
+                            name="file"
                             ref={fileInputRef}
                             style={{ display: 'none' }}
+                            className="fs-2 border-bottom-only no-rounded"
+                            onChange={handleFileChange}
+                            accept=".pdf, .xls, .xlsx, .doc, .docx" 
                             required
                         />
-                        <button
-                            type="button"
-                            onClick={handleFileInputClick}
-                            className="fs-2 btn btn-outline-primary"
-                        >
-                            {fileName || "Selecciona un archivo"}
-                        </button>
                     </div>
                 </div>
-                <div className="d-flex py-2 w-100 justify-content-center">
-                    <button
-                        className="btn btn-primary btn-lg"
-                        type="submit"
-                    >
-                        Guardar Documento
-                    </button>
+                <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
+                    <Link to="/transparencia/archivo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
+                    <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
                 </div>
             </form>
         </div>
