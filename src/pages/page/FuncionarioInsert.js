@@ -43,15 +43,7 @@ function FuncionarioInsert() {
             if (!emailRegex.test(newFuncionario.correo)) {
                 throw new Error('Correo electrónico inválido');
             }
-    
-            // Validar el número de teléfono
-            const phoneRegex = /^\d{10}$/;
-            if (!phoneRegex.test(newFuncionario.telefono)) {
-                throw new Error('Número de teléfono inválido');
-            }
-    
-            // Resto del código para enviar los datos al servidor...
-    
+
             const formData = new FormData();
             formData.append('nombre_funcionario', newFuncionario.nombre_funcionario);
             formData.append('puesto', newFuncionario.puesto);
@@ -121,7 +113,7 @@ function FuncionarioInsert() {
                             onChange={handleInputChange}
                             required
                         >
-                            <option value="" disabled>Seleccione un área</option>
+                            <option value="" disabled>Seleccione un Puesto</option>
                             <option value="Presidente/a Municipal">Presidente/a Municipal</option>
                             <option value="Secretario/a Municipal">Secretario/a Municipal</option>
                             <option value="Tesorero/a Municipal">Tesorero/a Municipal</option>

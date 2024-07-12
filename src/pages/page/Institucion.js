@@ -159,7 +159,7 @@ function Institucion() {
                             <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{institucion.email.length > 13 ? `${institucion.email.substring(0, 13)}...` : institucion.email}</td>
                             <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{institucion.horario}</td>
                             <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>
-                                <img src={`${host}${institucion.ruta}${institucion.imagen}`} alt="" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, margin: 'auto', display: 'block'}} />
+                                <img src={`${institucion.ruta}`} alt="" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, margin: 'auto', display: 'block'}} />
                             </td>
                         </tr>
                     ))}

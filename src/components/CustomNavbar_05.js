@@ -4,7 +4,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const CustomNavbar = () => {
-
+    // Función para manejar el clic en "Salir"
     const handleLogout = () => {
         localStorage.clear();// Borra el token del almacenamiento local
         window.location.href = '/'; // Redirige al usuario a la página de inicio de sesión
@@ -13,14 +13,8 @@ const CustomNavbar = () => {
     return (
         <Navbar expand="lg" fixed="top">
             <Nav className="mr-auto" style={{ marginLeft: '20px'}}>
-                <Nav.Link as={Link} to="/pagina/logo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Logo</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/carrusel" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Carrucel</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/color" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Colores</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/mapa" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Mapa</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/contactos/funcionarios" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Contacto Funcionarios</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/contactos/institucinal" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Contacto Institucinal</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/expresidentes" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Expresidentes</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/explora" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Explora</Nav.Link>
+                <Nav.Link as={Link} to="/buzon" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Buzon</Nav.Link>
+                <Nav.Link as={Link} to="/chatbot" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Chatbot</Nav.Link>
             </Nav>
             <Nav className="ml-auto" style={{ marginRight: '10px'}}>
                 <NavDropdown 
@@ -35,6 +29,7 @@ const CustomNavbar = () => {
                     className="custom-dropdown-menu"
                     style={{ marginRight: '30px' }}
                 >
+                    {/* Usar la función handleLogout en el evento onClick */}
                     <NavDropdown.Item as={Link} to="/menu">Menu</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={handleLogout}>Salir</NavDropdown.Item>

@@ -114,7 +114,7 @@ function Carrusel() {
                     >
                         {aviso.imagen ? (
                             <img 
-                                src={`${host}${aviso.ruta}${aviso.imagen}`} 
+                                src={`${aviso.ruta}`} 
                                 alt={aviso.imagen} 
                                 style={{ 
                                     width: '100%', 

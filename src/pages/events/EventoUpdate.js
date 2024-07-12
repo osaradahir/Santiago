@@ -95,7 +95,7 @@ function EventoUpdate(){
         <div className="app">
             <CustomNavbar />
             <div className="d-flex align-items-center justify-content-center text-center">
-                <h1 className="fs-1">Ingresa un nuevo Evento</h1>
+                <h1 className="fs-1">Edita tu Evento</h1>
             </div>
 
             <form onSubmit={handleSubmit} style={{ marginTop: "10px" }}>

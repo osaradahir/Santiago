@@ -87,6 +87,7 @@ function Archivos() {
                     const updatedDocumentos = datosDocumentos.filter(documento => documento.id_documento !== selectedId);
                     setDatosDocumentos(updatedDocumentos);
                     setSelectedId(null);
+                    alert('Documento borrado correctamente')
                 })
                 .catch(error => {
                     console.error('Error al eliminar el documento:', error);
@@ -102,9 +103,10 @@ function Archivos() {
             const selectedDocumento = datosDocumentos.find(doc => doc.id_documento === selectedId);
             if (selectedDocumento) {
                 const downloadLink = document.createElement('a');
-                downloadLink.href = `${host}${selectedDocumento.ruta}/${selectedDocumento.documento}`;
+                downloadLink.href = `${selectedDocumento.ruta}`;
                 downloadLink.download = selectedDocumento.documento;
                 downloadLink.click();
+                alert('Documento descargado')
             } else {
                 alert('Documento no encontrado.');
             }
@@ -117,7 +119,7 @@ function Archivos() {
         if (selectedId) {
             const selectedDocumento = datosDocumentos.find(doc => doc.id_documento === selectedId);
             if (selectedDocumento) {
-                const enlaceDocumento = `https://docs.google.com/gview?url=${host}${selectedDocumento.ruta}/${selectedDocumento.documento}&embedded=true`;
+                const enlaceDocumento = `https://docs.google.com/gview?url=${selectedDocumento.ruta}&embedded=true`;
                 window.open(enlaceDocumento, "width=800,height=600");
             } else {
                 alert('Documento no encontrado.');

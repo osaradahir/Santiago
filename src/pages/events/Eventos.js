@@ -142,7 +142,7 @@ function Evento() {
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{convertirFecha(evento.fecha)}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{convertirSegundosAHora(evento.hora)}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>
-                                    <img src={`${host}${evento.ruta}${evento.imagen}`} style={{ maxWidth: "100px", maxHeight: "100px", margin: 'auto', display: 'block'}} alt="" />
+                                    <img src={`${evento.ruta}`} style={{ maxWidth: "100px", maxHeight: "100px", margin: 'auto', display: 'block'}} alt="" />
                                 </td>
                             </tr>
                         ))}

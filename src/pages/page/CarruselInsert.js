@@ -37,10 +37,18 @@ function CarruselInsert() {
             return;
         }
 
+        
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('url', url);
         formData.append('estado', estado);
+
+         // Imprimir los datos en la consola
+         console.log('Datos enviados:', {
+            file: selectedFile,
+            url: url,
+            estado: estado
+        });
 
         try {
             const response = await fetch(`${host}aviso/crear`, {
@@ -50,7 +58,7 @@ function CarruselInsert() {
 
             if (response.ok) {
                 const data = await response.json();
-                alert(`Archivo subido exitosamente: ${data.filename}`);
+                alert(`Archivo subido exitosamente`);
                 window.location.href = '/pagina/carrusel';
             } else {
                 const errorData = await response.json();

@@ -94,6 +94,7 @@ function DocumentosInsert() {
             });
             setFileName("");
             window.location.href = '/transparencia/archivo';
+            alert('Documento creado con exito')
 
         } catch (error) {
             console.error('Error al enviar los datos:', error);
@@ -103,89 +104,91 @@ function DocumentosInsert() {
     return (
         <div className="app">
             <CustomNavbar />
-            <div className="d-flex align-items-center justify-content-center text-center">
-                <h1 className="fs-1">Ingresa un nuevo Artículo</h1>
-            </div>
+            <div style={{ marginTop: "100px" }}>
+                <div className="d-flex align-items-center justify-content-center text-center">
+                    <h1 className="fs-1">Ingresa un nuevo Documento</h1>
+                </div>
 
-            <form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>
-                <div id="form-container-input" className="d-flex flex-column align-items-center">
-                    
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <select
-                            id="fraccion"
-                            name="id_fraccion"
-                            className="fs-2 border-bottom-only no-rounded"
-                            value={newDocumento.id_fraccion}
-                            onChange={handleInputChange}
-                            required
-                        >
-                            <option value="">Selecciona una fraccion</option>
-                            {fraccion.map((item, index) => (
-                                <option key={index} value={item.id_fraccion}>
-                                    {item.fraccion}
-                                </option>
-                            ))}
-                        </select>
+                <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+                    <div id="form-container-input" className="d-flex flex-column align-items-center">
+                        
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <select
+                                id="fraccion"
+                                name="id_fraccion"
+                                className="fs-2 border-bottom-only no-rounded"
+                                value={newDocumento.id_fraccion}
+                                onChange={handleInputChange}
+                                required
+                            >
+                                <option value="">Selecciona una fraccion</option>
+                                {fraccion.map((item, index) => (
+                                    <option key={index} value={item.id_fraccion}>
+                                        {item.fraccion}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <select
+                                id="trimestre"
+                                name="trimestre"
+                                className="fs-2 border-bottom-only no-rounded"
+                                value={newDocumento.trimestre}
+                                onChange={handleInputChange}
+                                required
+                            >
+                                <option value="">Selecciona un trimestre</option>
+                                <option value="1"> 1 </option>
+                                <option value="2"> 2 </option>
+                                <option value="3"> 3 </option>
+                                <option value="4"> 4 </option>
+                            </select>
+                        </div>
+                        
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <select
+                                id="año"
+                                name="año"
+                                className="fs-2 border-bottom-only no-rounded"
+                                value={newDocumento.año}
+                                onChange={handleInputChange}
+                                required
+                            >
+                                <option value="">Selecciona un año</option>
+                                {año.map((item, index) => (
+                                    <option key={index} value={item.año}>
+                                        {item.año}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <button type="button" className="fs-2 border-bottom-only no-rounded" onClick={handleFileInputClick} style={{width:"100%"}}>
+                                Seleccionar archivo
+                            </button>
+                            <span className="fs-2 border-bottom-only no-rounded">
+                                {fileName.length > 15 ? `${fileName.substring(0, 15)}...` : fileName}
+                            </span>
+                            <input
+                                type="file"
+                                id="file"
+                                name="file"
+                                ref={fileInputRef}
+                                style={{ display: 'none' }}
+                                className="fs-2 border-bottom-only no-rounded"
+                                onChange={handleFileChange}
+                                accept=".pdf, .xls, .xlsx, .doc, .docx" 
+                                required
+                            />
+                        </div>
                     </div>
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <select
-                            id="trimestre"
-                            name="trimestre"
-                            className="fs-2 border-bottom-only no-rounded"
-                            value={newDocumento.trimestre}
-                            onChange={handleInputChange}
-                            required
-                        >
-                            <option value="">Selecciona un trimestre</option>
-                            <option value="1"> 1 </option>
-                            <option value="2"> 2 </option>
-                            <option value="3"> 3 </option>
-                            <option value="4"> 4 </option>
-                        </select>
+                    <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
+                        <Link to="/transparencia/archivo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
+                        <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
                     </div>
-                    
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <select
-                            id="año"
-                            name="año"
-                            className="fs-2 border-bottom-only no-rounded"
-                            value={newDocumento.año}
-                            onChange={handleInputChange}
-                            required
-                        >
-                            <option value="">Selecciona un año</option>
-                            {año.map((item, index) => (
-                                <option key={index} value={item.año}>
-                                    {item.año}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <button type="button" className="fs-2 border-bottom-only no-rounded" onClick={handleFileInputClick} style={{width:"100%"}}>
-                            Seleccionar archivo
-                        </button>
-                        <span className="fs-2 border-bottom-only no-rounded">
-                            {fileName.length > 15 ? `${fileName.substring(0, 15)}...` : fileName}
-                        </span>
-                        <input
-                            type="file"
-                            id="file"
-                            name="file"
-                            ref={fileInputRef}
-                            style={{ display: 'none' }}
-                            className="fs-2 border-bottom-only no-rounded"
-                            onChange={handleFileChange}
-                            accept=".pdf, .xls, .xlsx, .doc, .docx" 
-                            required
-                        />
-                    </div>
-                </div>
-                <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
-                    <Link to="/transparencia/archivo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
-                    <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     );
 }

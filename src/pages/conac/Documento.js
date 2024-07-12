@@ -72,7 +72,7 @@ function DocumentosConac() {
             const selectedDocumento = documentos.find(doc => doc.id_documento === selectedId);
             if (selectedDocumento) {
                 const downloadLink = document.createElement('a');
-                downloadLink.href = `${host}${selectedDocumento.ruta}`;
+                downloadLink.href = `${selectedDocumento.ruta}`;
                 downloadLink.download = selectedDocumento.archivo;
                 downloadLink.click();
             } else {
@@ -87,7 +87,7 @@ function DocumentosConac() {
         if (selectedId) {
             const selectedDocumento = documentos.find(doc => doc.id_documento === selectedId);
             if (selectedDocumento) {
-                const enlaceDocumento = `https://docs.google.com/gview?url=${host}${selectedDocumento.ruta}&embedded=true`;
+                const enlaceDocumento = `https://docs.google.com/gview?url=${selectedDocumento.ruta}&embedded=true`;
                 window.open(enlaceDocumento, "width=800,height=600");
             } else {
                 alert('Documento no encontrado.');

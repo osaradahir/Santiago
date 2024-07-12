@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../css/Articulos.css';
+import '../../css/Botones.css';
 import CustomNavbar from '../../components/CustomNavbar_03';
 import { host } from '../../conexion'
 
@@ -45,7 +45,7 @@ function Articulos() {
                         <button
                             key={articulo.id}
                             onClick={() => handleSend(articulo.num_articulo)}
-                            className="custom-button me-2 mb-2"
+                            className="custom-buttona me-2 mb-2"
                         >
                             {articulo.num_articulo}
                         </button>

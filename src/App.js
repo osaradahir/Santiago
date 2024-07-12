@@ -24,6 +24,9 @@ import InstitucionUpdate from './pages/page/InstitucionUpdate';
 import Expresidente from './pages/page/Expresidentes';
 import ExpresidenteInsert from './pages/page/ExpresidenteInsert';
 import ExpresidenteUpdate from './pages/page/ExpresidenteUpdate';
+import Explora from './pages/page/Explora';
+import ExploraInsert from './pages/page/ExploraInsert';
+import ExploraUpdate from './pages/page/ExploraUpdate';
 import Noticias from './pages/news/Noticias';
 import NoticiaInsert from './pages/news/NoticiaInsert';
 import NoticiaUpdate from './pages/news/NoticiaUpdate';
@@ -34,6 +37,7 @@ import Encuestas from './pages/surveys/Encuestas';
 import EncuestaInsert from './pages/surveys/EncuestaInsert';
 import EncuestaUpdate from './pages/surveys/EncuestaUpdate';
 import Buzon from './pages/mailbox/Buzon';
+import Chatbot from './pages/mailbox/Chatbot';
 import Tomo from './pages/conac/Tomos';
 import TomoInsert from './pages/conac/TomoInsert';
 import TomoUpdate from './pages/conac/TomoUpdate';
@@ -105,6 +109,9 @@ function App() {
           <Route path="/pagina/expresidentes" element={<PrivateRoute element={<Expresidente />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/expresidentes/insertar" element={<PrivateRoute element={<ExpresidenteInsert />} allowedRoles={['administrador']} />} />
           <Route path="/pagina/expresidentes/actualizar" element={<PrivateRoute element={<ExpresidenteUpdate />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/explora" element={<PrivateRoute element={<Explora />} allowedRoles={['administrador']} />} />
+          <Route path="/pagina/explora/insertar" element={<PrivateRoute element={<ExploraInsert />} allowedRoles={['administrador']} />} />
+          <Route path='/pagina/explora/actualizar' element={<PrivateRoute element={<ExploraUpdate />} allowedRoles={['administrador']} />} />
           <Route path="/noticias" element={<PrivateRoute element={<Noticias />} allowedRoles={['administrador']} />} />
           <Route path="/noticias/insertar" element={<PrivateRoute element={<NoticiaInsert />} allowedRoles={['administrador']} />} />
           <Route path="/noticias/actualizar" element={<PrivateRoute element={<NoticiaUpdate />} allowedRoles={['administrador']} />} />
@@ -115,6 +122,7 @@ function App() {
           <Route path="/encuesta/insertar" element={<PrivateRoute element={<EncuestaInsert />} allowedRoles={['administrador']} />} />
           <Route path='/encuesta/actualizar' element={<PrivateRoute element={<EncuestaUpdate />} allowedRoles={['administrador']} />} />
           <Route path="/buzon" element={<PrivateRoute element={<Buzon />}  allowedRoles={['administrador']} />} />
+          <Route path='/chatbot'element={<PrivateRoute element={<Chatbot />}  allowedRoles={['administrador']} />} />
           <Route path="/conac/tomo" element={<PrivateRoute element={<Tomo />} allowedRoles={['administrador']} />} />
           <Route path="/conac/tomo/insertar" element={<PrivateRoute element={<TomoInsert />} allowedRoles={['administrador']} />} />
           <Route path="/conac/tomo/actualizar" element={<PrivateRoute element={<TomoUpdate />} allowedRoles={['administrador']} />} />

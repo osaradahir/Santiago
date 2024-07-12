@@ -26,7 +26,7 @@ function Menu() {
                     <a href="/transparencia/articulo" className="button">Transparencia</a>
                 </div>
                 <div className="right">
-                    <a href="/buzon" className="button">Buzon</a>
+                    <a href="/buzon" className="button">Buzon y Chatbot</a>
                     <a href="/conac/tomo" className="button">CONAC</a>
                 </div>
                 

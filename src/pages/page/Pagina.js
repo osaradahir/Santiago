@@ -110,7 +110,7 @@ function Pagina() {
             </div>
             <div id="logo-container" className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
                 {logo ? (
-                    <img src={`${host}${logo.ruta}${logo.archivo}`} alt="Logo" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, marginTop: '25%'}} />
+                    <img src={`${logo.ruta}`} alt="Logo" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, marginTop: '25%'}} />
                 ) : (
                     <p>No hay un logo disponible.</p>
                 )}

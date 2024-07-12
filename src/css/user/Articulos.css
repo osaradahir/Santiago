@@ -1,0 +1,27 @@
+.custom-button {
+    background-color: #04703F;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 300px; /* Limita el ancho máximo para evitar botones muy anchos */
+}
+
+.custom-button:hover {
+    background-color: #03502A;
+}
+
+.no {
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 20px;
+}
+
+.button-container1 {
+    margin-top: 250px; /* Ajusta el margen superior del contenedor de los botones */
+}

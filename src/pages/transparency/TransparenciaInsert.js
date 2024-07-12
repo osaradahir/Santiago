@@ -50,31 +50,33 @@ function TransparenciaInsert(){
     return(
         <div className="app">
             <CustomNavbar />
-            <div className="d-flex align-items-center justify-content-center text-center">
-                <h1 className="fs-1">Ingresa un nuevo Articulo</h1>
-            </div>
+            <div style={{ marginTop: "100px" }}>
+                <div className="d-flex align-items-center justify-content-center text-center">
+                    <h1 className="fs-1">Ingresa un nuevo Articulo</h1>
+                </div>
 
-            <form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>
-                <div id="form-container-input" className="d-flex flex-column align-items-center">
-                    <div className="form-group d-flex py-2 w-100 justify-content-center">
-                        <input
-                            type="number"
-                            id="num_articulo"
-                            name="num_articulo"
-                            className="fs-2 border-bottom-only no-rounded"
-                            placeholder="Numero del articulo"
-                            value={newTransparencia.num_articulo}
-                            onChange={handleInputChange}
-                            required
-                        />
+                <form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>
+                    <div id="form-container-input" className="d-flex flex-column align-items-center">
+                        <div className="form-group d-flex py-2 w-100 justify-content-center">
+                            <input
+                                type="number"
+                                id="num_articulo"
+                                name="num_articulo"
+                                className="fs-2 border-bottom-only no-rounded"
+                                placeholder="Numero del articulo"
+                                value={newTransparencia.num_articulo}
+                                onChange={handleInputChange}
+                                required
+                            />
+                        </div>
+                        
                     </div>
-                    
-                </div>
-                <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
-                    <Link to="/transparencia/articulo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
-                    <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
-                </div>
-            </form>
+                    <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
+                        <Link to="/transparencia/articulo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
+                        <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

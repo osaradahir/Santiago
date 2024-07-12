@@ -63,11 +63,6 @@ function FuncionarioUpdate() {
             if (!emailRegex.test(newFuncionario.correo)) {
                 throw new Error('Correo electrónico inválido');
             }
-    
-            const phoneRegex = /^\d{10}$/;
-            if (!phoneRegex.test(newFuncionario.telefono)) {
-                throw new Error('Número de teléfono inválido');
-            }
 
             const formData = new FormData();
             formData.append('nombre_funcionario', newFuncionario.nombre_funcionario);
@@ -76,9 +71,7 @@ function FuncionarioUpdate() {
             formData.append('telefono', newFuncionario.telefono);
             formData.append('correo', newFuncionario.correo);
             if (selectedFile) {
-                formData.append('imagen', selectedFile);
-            } else {
-                formData.append('imagen', newFuncionario.imagen); 
+                formData.append('file', selectedFile);
             }
 
             const response = await fetch(`${host}funcionario/editar/${funcionariID}`, {

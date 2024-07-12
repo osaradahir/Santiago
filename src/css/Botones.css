@@ -1,18 +1,19 @@
-.custom-button {
+.custom-buttona {
     background-color: #04703F; /* Color de fondo */
     color: white; /* Color del texto */
     font-size: 1.5rem; /* Ajusta el tamaño de la fuente según sea necesario */
     padding: 1rem 2rem; /* Ajusta el padding según sea necesario */
     border: none; /* Elimina el borde predeterminado */
     border-radius: 0.25rem; /* Añade bordes redondeados si se desea */
-    width: 250px; /* Ancho fijo para asegurar que todos los botones tengan el mismo tamaño */
-    height: 80px; /* Altura fija para asegurar que todos los botones tengan el mismo tamaño */
+    width: 200px; /* Ancho fijo para asegurar que todos los botones tengan el mismo tamaño */
+    height: 60px; /* Altura fija para asegurar que todos los botones tengan el mismo tamaño */
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 80px;
 }
 
-.custom-button:hover {
+.custom-buttona:hover {
     background-color: #03502A; /* Color de fondo al pasar el mouse */
 }
 

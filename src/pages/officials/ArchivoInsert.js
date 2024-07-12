@@ -107,6 +107,7 @@ function DocumentosInsert() {
             const fraccionID = localStorage.getItem('fraccionID');
              // Redirigir a la nueva página con el id_fraccion
             window.location.href = `/funcionarios/archivos?fraccion=${fraccionID}`;
+            alert('Documento creado correctamente');
 
         } catch (error) {
             console.error('Error al enviar los datos:', error);
@@ -133,7 +134,7 @@ function DocumentosInsert() {
                             required
                             disabled
                         >
-                            <option value="">Selecciona un artículo</option>
+                            <option value="">Selecciona una Fraccion</option>
                             {fraccion.map((item, index) => (
                                 <option key={index} value={item.id_fraccion}>
                                     {item.fraccion}

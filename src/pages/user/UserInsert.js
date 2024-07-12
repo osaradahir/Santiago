@@ -106,6 +106,8 @@ are doing: */
                             <option value="Secretaría Municipal">Secretaría Municipal</option>
                             <option value="Oficial Mayor">Oficial Mayor</option>
                             <option value="Contraloría">Contraloría</option>
+                            <option value="Jurídico">Jurídico</option>
+                            <option value="Archivo Municipal">Archivo Municipal</option>
                             <option value="Administracion">Administración</option>
                         </select>
                     </div>

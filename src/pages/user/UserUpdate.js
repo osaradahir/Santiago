@@ -139,7 +139,9 @@ data based on the `userID` parameter. Here's a breakdown of what it does: */
                             <option value="Secretaría Municipal">Secretaría Municipal</option>
                             <option value="Oficial Mayor">Oficial Mayor</option>
                             <option value="Contraloría">Contraloría</option>
-                            <option value="Administracion">Administración</option>
+                            <option value="Jurídico">Jurídico</option>
+                            <option value="Archivo Municipal">Archivo Municipal</option>
+                            <option value="Administración">Administración</option>
                         </select>
                     </div>
                     <div className="form-group d-flex py-2 w-100 justify-content-center">

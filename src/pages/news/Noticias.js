@@ -146,7 +146,7 @@ function Noticia() {
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{noticia.titulo}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{noticia.contenido && truncateText(noticia.contenido, 20)}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>
-                                <img src={`${host}${noticia.ruta}${noticia.imagen}`} alt="Logo" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, margin: 'auto', display: 'block'}} />
+                                <img src={`${noticia.ruta}`} alt="Logo" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, margin: 'auto', display: 'block'}} />
                                 </td>
                             </tr>
                         ))}

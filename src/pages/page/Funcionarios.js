@@ -194,9 +194,9 @@ function Funcionarios() {
                             <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{funcionario.puesto}</td>
                             <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{funcionario.institucion}</td>
                             <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{funcionario.telefono}</td>
-                            <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{funcionario.correo}</td>
+                            <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{funcionario.correo.length > 10 ? `${funcionario.correo.substring(0, 10)}...` : funcionario.correo}</td>
                             <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>
-                                <img src={`${host}${funcionario.ruta}${funcionario.imagen}`} alt="" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, margin: 'auto', display: 'block'}} />
+                                <img src={`${funcionario.ruta}`} alt="" style={{ width: tamañoOptimo?.width, height: tamañoOptimo?.height, margin: 'auto', display: 'block'}} />
                             </td>
                         </tr>
                     ))}

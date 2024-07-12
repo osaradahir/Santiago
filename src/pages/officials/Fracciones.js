@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../css/user/Articulos.css';
 import { useLocation } from 'react-router-dom';
-import '../../css/Articulos.css';
 import CustomNavbar from '../../components/CustomNavbar_03';
-import {host} from '../../conexion';
+import { host } from '../../conexion';
 
 function Fracciones() {
     const [datosFracciones, setDatosFracciones] = useState([]);
-
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const articuloID = searchParams.get('num_articulo');
@@ -43,22 +42,24 @@ function Fracciones() {
                     <h1 className="fs-1"><b>Fracciones</b></h1>
                 </div>
             </div>
-            <div className="button-container mt-5 px-4 py-4">
-                <div className="d-flex flex-wrap justify-content-center" style={{ marginTop: "200px" }}>
+            <div className="button-container1 d-flex justify-content-center flex-wrap">
                 {datosFracciones.length > 0 ? (
-                        datosFracciones.map((fraccion) => (
-                            <button
-                                key={fraccion.id_fraccion}
-                                onClick={() => handleSend(fraccion.id_fraccion)}
-                                className="custom-button me-2 mb-2"
-                            >
-                                {fraccion.fraccion} {fraccion.descripcion}
-                            </button>
-                        ))
-                        ) : (
-                            <p className='no'>No se asignaron fracciones para esta area.</p>
-                        )}
-                </div>
+                    datosFracciones.map((fraccion) => (
+                        <button
+                            key={fraccion.id_fraccion}
+                            onClick={() => handleSend(fraccion.id_fraccion)}
+                            className="custom-button"
+                        >
+                            <div>
+                                <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{fraccion.fraccion}</span>
+                                <br />
+                                <span>{fraccion.descripcion}</span>
+                            </div>
+                        </button>
+                    ))
+                ) : (
+                    <p className='no'>No se asignaron fracciones para esta área.</p>
+                )}
             </div>
         </div>
     );

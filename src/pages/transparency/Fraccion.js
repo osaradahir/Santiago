@@ -78,7 +78,7 @@ function Fraccion() {
         fraccion.fraccion.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
         fraccion.num_articulo.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
         fraccion.descripcion.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
-        fraccion.area.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        fraccion.areas.some(area => area.nombre_area.toLowerCase().includes(searchTerm.toLowerCase()))
     ) : datosFraccion;
 
 
@@ -136,7 +136,11 @@ function Fraccion() {
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{fraccion.fraccion}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{fraccion.num_articulo}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{fraccion.descripcion}</td>
-                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{fraccion.area}</td>
+                                <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F" }}>
+                                    {fraccion.areas.map((area, index) => (
+                                        <span key={index}>{area.nombre_area}{index < fraccion.areas.length - 1 && ", "}</span>
+                                    ))}
+                                </td>
                             </tr>
                         ))}
                     </tbody>

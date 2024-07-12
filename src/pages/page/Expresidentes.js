@@ -126,7 +126,7 @@ function Expresidentes() {
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{expresidente.nombre_expresidente}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>{expresidente.periodo}</td>
                                 <td className='fs-4' style={{ borderBottom: "2px solid #04703F", color: "#04703F"}}>
-                                    <img src={`${host}${expresidente.ruta}${expresidente.imagen}`} style={{ maxWidth: "100px", maxHeight: "100px", margin: 'auto', display: 'block'}} alt="" />
+                                    <img src={`${expresidente.ruta}`} style={{ maxWidth: "100px", maxHeight: "100px", margin: 'auto', display: 'block'}} alt="" />
                                 </td>
                             </tr>
                         ))}

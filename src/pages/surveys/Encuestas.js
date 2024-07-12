@@ -31,7 +31,7 @@ function Encuestas() {
             // Crear un enlace temporal y simular el clic para iniciar la descarga
             const a = document.createElement('a');
             a.href = excelUrl;
-            a.download = `Encuesta ${selectedId}.xlsx`;
+            a.download = `Encuesta ${datosEncuestas.find(encuesta => encuesta.id_encuesta === selectedId).titulo}.xlsx`;
             a.click();
 
             // Limpiar el URL después de la descarga
@@ -197,7 +197,7 @@ function Encuestas() {
                                 <div className="spinner-border text-primary" role="status">
                                     <span className="visually-hidden">Cargando...</span>
                                 </div>
-                                <strong className="ms-2">Cargando...</strong>
+                                <strong className="ms-2">Espera se esta generando tu Excel...</strong>
                             </div>
                         </div>
                     </div>
