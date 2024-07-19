@@ -65,6 +65,7 @@ function EventoInsert() {
                 hora: ''
             });
             window.location.href = '/eventos';
+            alert('Evento creado Correctamente');
         } catch (error) {
             console.error('Error al enviar los datos:', error);
         }

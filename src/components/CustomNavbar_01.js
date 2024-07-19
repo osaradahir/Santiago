@@ -14,7 +14,7 @@ const CustomNavbar = () => {
         <Navbar expand="lg" fixed="top">
             <Nav className="mr-auto" style={{ marginLeft: '20px'}}>
                 <Nav.Link as={Link} to="/pagina/logo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Logo</Nav.Link>
-                <Nav.Link as={Link} to="/pagina/carrusel" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Carrucel</Nav.Link>
+                <Nav.Link as={Link} to="/pagina/carrusel" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Carrusel</Nav.Link>
                 <Nav.Link as={Link} to="/pagina/color" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Colores</Nav.Link>
                 <Nav.Link as={Link} to="/pagina/mapa" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Mapa</Nav.Link>
                 <Nav.Link as={Link} to="/pagina/contactos/funcionarios" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold"}}>Contacto Funcionarios</Nav.Link>

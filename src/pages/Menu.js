@@ -15,7 +15,7 @@ function Menu() {
             <div className="menu">
                 <div className="left">
                     <a href="/usuarios" className="button">Usuarios</a>
-                    <a href="/pagina/logo" className="button">Pagina</a>
+                    <a href="/pagina/logo" className="button">Página</a>
                 </div>
                 <div className="right">
                     <a href="/noticias" className="button">Noticias</a>
@@ -26,7 +26,7 @@ function Menu() {
                     <a href="/transparencia/articulo" className="button">Transparencia</a>
                 </div>
                 <div className="right">
-                    <a href="/buzon" className="button">Buzon y Chatbot</a>
+                    <a href="/buzon" className="button">Buzón y Chatbot</a>
                     <a href="/conac/tomo" className="button">CONAC</a>
                 </div>
                 
