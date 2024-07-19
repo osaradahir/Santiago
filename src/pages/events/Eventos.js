@@ -53,6 +53,7 @@ function Evento() {
                     const updatedEvento = datosEvento.filter(evento => evento.id_evento !== selectedId);
                     setDatosEvento(updatedEvento);
                     setSelectedId(null);
+                    alert('Evento eliminado correctamente');
                 })
                 .catch(error => {
                     console.error('Error al eliminar el evento:', error);
