@@ -59,6 +59,7 @@ function Fraccion() {
                     const updatedTransparencia = datosFraccion.filter(transparencia => transparencia.id_fraccion !== selectedId);
                     setDatosFraccion(updatedTransparencia);
                     setSelectedId(null);
+                    alert('Fraccion eliminada correctamente');
                 })
                 .catch(error => {
                     console.error('Error al eliminar la fraccion:', error);
