@@ -75,6 +75,7 @@ function DocumentosConac() {
                 downloadLink.href = `${selectedDocumento.ruta}`;
                 downloadLink.download = selectedDocumento.archivo;
                 downloadLink.click();
+                alert('Descarga completada.');
             } else {
                 alert('Documento no encontrado.');
             }
