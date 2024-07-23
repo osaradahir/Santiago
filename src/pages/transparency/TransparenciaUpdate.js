@@ -98,7 +98,7 @@ function TransparenciaUpdate() {
             <CustomNavbar />
             <div style={{ marginTop: "100px" }}>
                 <div className="d-flex align-items-center justify-content-center text-center">
-                    <h1 className="fs-1">Edita tu Articulo</h1>
+                    <h1 className="fs-1">Edita tu Artículo</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} style={{ marginTop: "40px" }}>

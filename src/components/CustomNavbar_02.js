@@ -13,8 +13,8 @@ const CustomNavbar = () => {
     return (
         <Navbar expand="lg" fixed="top">
             <Nav className="mr-auto" style={{ marginLeft: '20px'}}>
-                <Nav.Link as={Link} to="/transparencia/articulo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Articulo</Nav.Link>
-                <Nav.Link as={Link} to="/transparencia/fraccion" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Fraccion</Nav.Link>
+                <Nav.Link as={Link} to="/transparencia/articulo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Artículo</Nav.Link>
+                <Nav.Link as={Link} to="/transparencia/fraccion" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Fracción</Nav.Link>
                 <Nav.Link as={Link} to="/transparencia/archivo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Archivo</Nav.Link>
 
             </Nav>

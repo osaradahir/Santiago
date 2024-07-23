@@ -14,8 +14,8 @@ const CustomNavbar = () => {
         <Navbar expand="lg" fixed="top">
             <Nav className="mr-auto" style={{ marginLeft: '20px'}}>
                 <Nav.Link as={Link} to="/conac/tomo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Tomos</Nav.Link>
-                <Nav.Link as={Link} to="/conac/seccion" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Seccion</Nav.Link>
-                <Nav.Link as={Link} to="/conac/fraccion" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Fraccion</Nav.Link>
+                <Nav.Link as={Link} to="/conac/seccion" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Sección</Nav.Link>
+                <Nav.Link as={Link} to="/conac/fraccion" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Fracción</Nav.Link>
                 <Nav.Link as={Link} to="/conac/archivo" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Documentos</Nav.Link>
             </Nav>
             <Nav className="ml-auto" style={{ marginRight: '10px'}}>

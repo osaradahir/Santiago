@@ -83,7 +83,7 @@ function Transparencia() {
             <CustomNavbar />
             <div className="acontainer">
                 <div className="container d-flex justify-content-between align-items-center">
-                    <h1 className="fs-1"><b>Articulos</b></h1>
+                    <h1 className="fs-1"><b>Artículos</b></h1>
                     <div className="d-flex align-items-center">
                     <div className="input-group rounded-pill border border-1 me-2 custom-border">
                             <input

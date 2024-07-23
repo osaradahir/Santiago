@@ -13,7 +13,7 @@ const CustomNavbar = () => {
     return (
         <Navbar expand="lg" fixed="top">
             <Nav className="mr-auto" style={{ marginLeft: '20px'}}>
-                <Nav.Link as={Link} to="/buzon" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Buzon</Nav.Link>
+                <Nav.Link as={Link} to="/buzon" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Buzón</Nav.Link>
                 <Nav.Link as={Link} to="/chatbot" style={{ fontSize: '1.5em', color:"#04703f", fontWeight: "bold" }}>Chatbot</Nav.Link>
             </Nav>
             <Nav className="ml-auto" style={{ marginRight: '10px'}}>
