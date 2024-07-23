@@ -261,7 +261,7 @@ function DocumentosInsertConac() {
                     </div>
                 </div>
                 <div id="form-container-button" className="d-flex align-items-center justify-content-around px-5">
-                    <Link to="/transparencia/archivo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
+                    <Link to="/conac/archivo" className="btn btn-outline-dark fs-4 btn-lg rounded-pill boton">Cancelar</Link>
                     <button type="submit" className="btn btn-outline-dark fs-4 btn-lg rounded-pill">Guardar</button>
                 </div>
             </form>
