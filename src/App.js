@@ -27,6 +27,9 @@ import TransparenciaUpdate from './pages/transparency/TransparenciaUpdate';
 import Fraccion from './pages/transparency/Fraccion';
 import FraccionInsert from './pages/transparency/FraccionInsert';
 import FraccionUpdate from './pages/transparency/FraccionUpdate';
+import Documentos from './pages/transparency/Documentos';
+import DocumentosInsert from './pages/transparency/DocumentosInsert';
+
 // Componente PrivateRoute para proteger rutas
 const PrivateRoute = ({ element, allowedRoles }) => {
   const token = localStorage.getItem('token');
@@ -61,12 +64,14 @@ function App() {
           <Route path="/eventos/actualizar" element={<PrivateRoute element={<EventoUpdate />} allowedRoles={['administrador']} />} />
           <Route path="/encuestas" element={<PrivateRoute element={<Encuestas />} allowedRoles={['administrador']} />} />
           <Route path="/encuesta/insertar" element={<PrivateRoute element={<EncuestaInsert />} allowedRoles={['administrador']} />} />
-          <Route path="/transparencia/articulo" element={<PrivateRoute element={<Transparencia />} allowedRoles={['director trasparencia', 'administrador']} />} />
-          <Route path="/transparencia/articulo/insertar" element={<PrivateRoute element={<TransparenciaInsert />} allowedRoles={['director trasparencia', 'administrador']} />} />
-          <Route path="/transparencia/articulo/actualizar" element={<PrivateRoute element={<TransparenciaUpdate />} allowedRoles={['director trasparencia', 'administrador']} />} />
-          <Route path="/transparencia/fraccion" element={<PrivateRoute element={<Fraccion />} allowedRoles={['director trasparencia', 'administrador']} />} />
-          <Route path="/transparencia/fraccion/insertar" element={<PrivateRoute element={<FraccionInsert />} allowedRoles={['director trasparencia', 'administrador']} />} />
-          <Route path="/transparencia/fraccion/actualizar" element={<PrivateRoute element={<FraccionUpdate />} allowedRoles={['director trasparencia', 'administrador']} />} />
+          <Route path="/transparencia/articulo" element={<PrivateRoute element={<Transparencia />} allowedRoles={['director transparencia', 'administrador']} />} />
+          <Route path="/transparencia/articulo/insertar" element={<PrivateRoute element={<TransparenciaInsert />} allowedRoles={['director transparencia', 'administrador']} />} />
+          <Route path="/transparencia/articulo/actualizar" element={<PrivateRoute element={<TransparenciaUpdate />} allowedRoles={['director transparencia', 'administrador']} />} />
+          <Route path="/transparencia/fraccion" element={<PrivateRoute element={<Fraccion />} allowedRoles={['director transparencia', 'administrador']} />} />
+          <Route path="/transparencia/fraccion/insertar" element={<PrivateRoute element={<FraccionInsert />} allowedRoles={['director transparencia', 'administrador']} />} />
+          <Route path="/transparencia/fraccion/actualizar" element={<PrivateRoute element={<FraccionUpdate />} allowedRoles={['director transparencia', 'administrador']} />} />
+          <Route path="/transparencia/archivo" element={<PrivateRoute element={<Documentos />} allowedRoles={['director transparencia', 'administrador']} />} />
+          <Route path="/transparencia/archivo/insertar" element={<PrivateRoute element={<DocumentosInsert />} allowedRoles={['director transparencia', 'administrador']} />} />
         </Routes>
       </div>
     </Router>
